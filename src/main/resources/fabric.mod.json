@@ -1,0 +1,49 @@
+{
+	"schemaVersion": 1,
+	"id": "sealymod",
+	"version": "${version}",
+	"name": "SealyMod",
+	"description": "Seals!",
+	"authors": [
+		"TheLinuxSeal"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/sealymod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.thelinuxseal.sealymod.SealyMod"
+		],
+		"client": [
+			"com.thelinuxseal.sealymod.client.SealyModClient"
+		],
+		"modmenu": [
+			"com.thelinuxseal.sealymod.client.config.SealyModMenuIntegration"
+		]
+	},
+	"mixins": [
+		"sealymod.mixins.json",
+		{
+			"config": "sealymod.client.mixins.json",
+			"environment": "client"
+		},
+		{
+			"config": "firebillboardfix.sealymod.clients.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~26.1.2",
+		"java": ">=25",
+		"fabric-api": "*",
+		"yet_another_config_lib_v3": ">=3.0.0"
+	},
+	"suggests": {
+		"modmenu": ">=11.0.0"
+	}
+}
