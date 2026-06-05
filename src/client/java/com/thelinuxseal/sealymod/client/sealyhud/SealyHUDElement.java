@@ -82,11 +82,13 @@ public class SealyHUDElement {
         String x = player != null ? String.format("%.1f", player.getX()) : "...";
         String y = player != null ? String.format("%.1f", player.getY()) : "...";
         String z = player != null ? String.format("%.1f", player.getZ()) : "...";
-        String dim = client.level != null ? client.level.dimension().identifier().toString(): "...";
+        String dim = client.level != null ? client.level.dimension().identifier().toString() : "...";
         String biome = client.level != null ? client.level.getBiome(player.getOnPos()).getRegisteredName() : "...";
+        String gameMode = client.gameMode != null ? client.gameMode.getPlayerMode().getName() : "...";
+
 
         // Regex pattern: Matches "%%", "%fps", "%x", "%y", or "%z"
-        Pattern pattern = Pattern.compile("%%|%fps|%x|%y|%z|%dim|%dimension|%biome");
+        Pattern pattern = Pattern.compile("%%|%fps|%x|%y|%z|%dim|%dimension|%biome|%gamemode");
         Matcher matcher = pattern.matcher(textTemplate);
         StringBuilder sb = new StringBuilder();
 
@@ -103,6 +105,7 @@ public class SealyHUDElement {
                 case "%dim" -> matcher.appendReplacement(sb, Matcher.quoteReplacement(dim));
                 case "%dimension" -> matcher.appendReplacement(sb, Matcher.quoteReplacement(dim));
                 case "%biome" -> matcher.appendReplacement(sb, Matcher.quoteReplacement(biome));
+                case "%gamemode" -> matcher.appendReplacement(sb, Matcher.quoteReplacement(gameMode));
                 default -> matcher.appendReplacement(sb, Matcher.quoteReplacement(token));
             }
         }
