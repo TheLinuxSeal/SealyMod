@@ -87,8 +87,6 @@ public class SealyHUDElement {
         String gameMode = SealyHUDVars.getGameMode();
         String ping = SealyHUDVars.getPing();
         String dir = SealyHUDVars.getDir();
-        //client.level.getServer().
-
 
 
         // Regex pattern: Matches "%%", "%fps", "%x", "%y", or "%z"
