@@ -78,44 +78,15 @@ public class SealyHUDElement {
         Minecraft client = Minecraft.getInstance();
         LocalPlayer player = client.player;
 
-        String fps = String.valueOf(client.getFps());
-        String x = player != null ? String.format("%.1f", player.getX()) : "...";
-        String y = player != null ? String.format("%.1f", player.getY()) : "...";
-        String z = player != null ? String.format("%.1f", player.getZ()) : "...";
-        String dim = client.level != null ? client.level.dimension().identifier().toString() : "...";
-        String biome = client.level != null ? client.level.getBiome(player.getOnPos()).getRegisteredName() : "...";
-        String gameMode = client.gameMode != null ? client.gameMode.getPlayerMode().getName() : "...";
-        String ping = "...";
-        if (player != null && client.getConnection() != null) {
-            var playerInfo = client.getConnection().getPlayerInfo(player.getUUID());
-            if (playerInfo != null) {
-                ping = playerInfo.getLatency() + "ms";
-            }
-        }
-        String dir = "...";
-        if (player != null) {
-            float yaw = player.getYRot();
-            // Normalize yaw to 0-360 range
-            float heading = (yaw % 360 + 360) % 360;
-
-            // An array of the 8 directions in clockwise order starting from South (0 degrees)
-            String[] directions = {
-                    "South (+Z)",          // 0° (337.5° - 22.5°)
-                    "Southwest (-X, +Z)",   // 45°
-                    "West (-X)",           // 90°
-                    "Northwest (-X, -Z)",   // 135°
-                    "North (-Z)",          // 180°
-                    "Northeast (+X, -Z)",   // 225°
-                    "East (+X)",           // 270°
-                    "Southeast (+X, +Z)"    // 315°
-            };
-
-            // Offset by 22.5 degrees so that 0° sits dead-center in the South slice,
-            // then divide by 45° slices and check the index.
-            int index = (int) Math.floor((heading + 22.5) / 45.0) & 7;
-
-            dir = directions[index];
-        }
+        String fps = String.valueOf(SealyHUDVars.getFPS());
+        String x = SealyHUDVars.getX();
+        String y = SealyHUDVars.getY();
+        String z = SealyHUDVars.getZ();
+        String dim = SealyHUDVars.getDim();
+        String biome = SealyHUDVars.getBiome();
+        String gameMode = SealyHUDVars.getGameMode();
+        String ping = SealyHUDVars.getPing();
+        String dir = SealyHUDVars.getDir();
         //client.level.getServer().
 
 
