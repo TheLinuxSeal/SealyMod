@@ -1,4 +1,4 @@
-package com.thelinuxseal.sealymod.client.sealyhud;
+package com.thelinuxseal.sealymod.client.sealyhud.parser;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

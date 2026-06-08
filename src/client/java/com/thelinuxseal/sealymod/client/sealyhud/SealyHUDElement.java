@@ -1,5 +1,7 @@
 package com.thelinuxseal.sealymod.client.sealyhud;
 
+import com.thelinuxseal.sealymod.client.sealyhud.parser.SealyHUDJexlTextParser;
+import com.thelinuxseal.sealymod.client.sealyhud.parser.SealyHUDSimpleTextParser;
 import net.minecraft.client.Minecraft;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
@@ -34,18 +36,21 @@ public class SealyHUDElement {
             this.xExpr = new ExpressionBuilder(xFormula)
                     .variables("screenwidth", "screenheight")
                     .build();
-
+        } catch (Exception e) {
+            this.xExpr = new ExpressionBuilder("0").build();
+        }
+        try {
             this.yExpr = new ExpressionBuilder(yFormula)
                     .variables("screenwidth", "screenheight")
                     .build();
+        } catch (Exception e) {
+            this.yExpr = new ExpressionBuilder("0").build();
+        }
+        try {
             this.textSizeExpr = new ExpressionBuilder(textSizeFormula)
                     .variables("screenwidth", "screenheight")
                     .build();
         } catch (Exception e) {
-            System.out.println(e.toString());
-            // Fallback safe expressions in case a player types a syntax error in the config menu
-            this.xExpr = new ExpressionBuilder("0").build();
-            this.yExpr = new ExpressionBuilder("0").build();
             this.textSizeExpr = new ExpressionBuilder("0").build();
         }
     }
@@ -60,6 +65,8 @@ public class SealyHUDElement {
                     .setVariable("screenheight", client.getWindow().getGuiScaledHeight())
                     .evaluate();
         } catch (Exception e) {
+            System.out.println("Error at SealyHUDElement$getX");
+            System.out.println(e.toString());
             return 0; // Fail-safe fallback if math evaluation goes wild
         }
     }
@@ -74,6 +81,8 @@ public class SealyHUDElement {
                     .setVariable("screenheight", client.getWindow().getGuiScaledHeight())
                     .evaluate();
         } catch (Exception e) {
+            System.out.println("Error at SealyHUDElement$getY");
+            System.out.println(e.toString());
             return 0;
         }
     }
@@ -95,9 +104,9 @@ public class SealyHUDElement {
 
     public String getText() {
         if (advancedParseMode) {
-            return "Unimplemented :(";
+            return SealyHUDJexlTextParser.getJexlText(textTemplate);
         } else {
-            return SealyHUDTextParser.getSimpleText(textTemplate);
+            return SealyHUDSimpleTextParser.getSimpleText(textTemplate);
         }
     }
 

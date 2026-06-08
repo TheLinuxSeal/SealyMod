@@ -1,16 +1,11 @@
-package com.thelinuxseal.sealymod.client.sealyhud;
+package com.thelinuxseal.sealymod.client.sealyhud.parser;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class SealyHUDTextParser {
+public final class SealyHUDSimpleTextParser {
     public static String getSimpleText(String textTemplate) {
-        Minecraft client = Minecraft.getInstance();
-        LocalPlayer player = client.player;
-
         String fps = String.valueOf(SealyHUDVars.getFPS());
         String x = SealyHUDVars.getX();
         String y = SealyHUDVars.getY();

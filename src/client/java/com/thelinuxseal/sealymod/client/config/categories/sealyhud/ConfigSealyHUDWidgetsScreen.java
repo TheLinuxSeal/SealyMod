@@ -58,7 +58,7 @@ public class ConfigSealyHUDWidgetsScreen extends Screen {
             textSizeInput.setValue(element.getTextSizeFormula());
 
             Checkbox advancedParseCheckbox = Checkbox.builder(Component.literal("Advanced Mode"), this.font).onValueChange((cb, value) -> element.setAdvancedParseMode(value)).pos(20, initialY+23).selected(element.getAdvancedParseMode()).build();
-            EditBox textInput = new EditBox(this.font, 22 + advancedParseCheckbox.getWidth(), initialY + 22, fullWidth - 22 - advancedParseCheckbox.getWidth(), 20, Component.literal("Text"));
+            EditBox textInput = new EditBox(this.font, 22 + advancedParseCheckbox.getWidth(), initialY + 22, fullWidth - 2 - advancedParseCheckbox.getWidth(), 20, Component.literal("Text"));
             textInput.setValue(element.getTextTemplate());
 
             xInput.setResponder(element::setXFormula);
