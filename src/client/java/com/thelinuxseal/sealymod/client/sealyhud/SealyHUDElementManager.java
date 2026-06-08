@@ -26,7 +26,9 @@ public class SealyHUDElementManager {
             SealyHUDElement element = new SealyHUDElement(
                     cfg.getXFormula(),
                     cfg.getYFormula(),
+                    cfg.getTextSizeFormula(),
                     cfg.getTextTemplate(),
+                    cfg.getAdvancedParseMode(),
                     cfg.isEnabled()
             );
             add(element);

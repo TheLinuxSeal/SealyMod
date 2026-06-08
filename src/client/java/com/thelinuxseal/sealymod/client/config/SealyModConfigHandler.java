@@ -39,6 +39,6 @@ public class SealyModConfigHandler {
     }
 
     public static void load() {
-        HANDLER.load();
+        HANDLER.load(); HANDLER.instance().sanitize();
     }
 }

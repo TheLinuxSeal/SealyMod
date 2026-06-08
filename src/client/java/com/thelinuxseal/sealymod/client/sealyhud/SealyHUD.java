@@ -29,6 +29,7 @@ public class SealyHUD {
                     continue;
                 }
 
+
                 graphics.text(
                         minecraft.font,
                         element.getText(),

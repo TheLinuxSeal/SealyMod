@@ -1,0 +1,10 @@
+{
+  "sealymod.name": "SealyMod",
+  "sealymod.sealyhud.name": "SealyHUD",
+  "sealymod.config.sealyhud.widget.options.enable": "Enable",
+  "sealymod.config.sealyhud.widget.options.x": "X Formula",
+  "sealymod.config.sealyhud.widget.options.y": "Y Formula",
+  "sealymod.config.sealyhud.widget.options.textSize": "Text Size Formula",
+  "sealymod.config.sealyhud.widget.options.text": "Text",
+  "sealymod.config.sealyhud.widget.options.delete": "[X] Delete"
+}

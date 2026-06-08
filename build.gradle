@@ -23,8 +23,8 @@ repositories {
 	// Explicitly configure Modrinth with a pattern filter
 	repositories {
 		maven {
-			name 'Xander Maven'
-			url 'https://maven.isxander.dev/releases'
+			name = 'Xander Maven'
+			url = 'https://maven.isxander.dev/releases'
 		}
 	}
 
