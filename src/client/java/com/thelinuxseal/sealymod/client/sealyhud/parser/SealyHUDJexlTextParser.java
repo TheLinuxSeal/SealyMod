@@ -1,5 +1,6 @@
 package com.thelinuxseal.sealymod.client.sealyhud.parser;
 
+import com.thelinuxseal.sealymod.client.sealyhud.SealyHUD;
 import org.apache.commons.jexl3.JexlEngine;
 import org.apache.commons.jexl3.JexlBuilder;
 import org.apache.commons.jexl3.JxltEngine;
@@ -27,7 +28,7 @@ public final class SealyHUDJexlTextParser {
         context.set("direction", SealyHUDVars.getDir());
         context.set("facing", SealyHUDVars.getDir());
         context.set("ping", SealyHUDVars.getPing());
-
+        context.set("gamemode", SealyHUDVars.getGameMode());
 
         Object result = expr.evaluate(context);
         return result != null ? result.toString() : "";

@@ -17,6 +17,9 @@ public class SealyHUD {
 
     private HudElement hudLayer() {
         return (graphics, deltaTracker) -> {
+            if (!SealyModConfigHandler.get().enableSealyHUD){
+                return;
+            }
             Minecraft minecraft = Minecraft.getInstance();
 
             if (minecraft.player == null || minecraft.level == null) {
