@@ -1,6 +1,5 @@
 package com.thelinuxseal.sealymod.client.sealyhud.parser;
 
-import com.thelinuxseal.sealymod.client.sealyhud.SealyHUD;
 import org.apache.commons.jexl3.JexlEngine;
 import org.apache.commons.jexl3.JexlBuilder;
 import org.apache.commons.jexl3.JxltEngine;

@@ -6,6 +6,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 
+
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,8 @@ public final class SealyModLang {
     }
 
     public static void reload() {
-        path = Identifier.fromNamespaceAndPath("sealymod", "sealylang/en_us.json");
+        String lang = Minecraft.getInstance().getLanguageManager().getSelected();
+        path = Identifier.fromNamespaceAndPath("sealymod", "sealylang/"+lang+".json");
 
         langFiles = client.getResourceManager().getResourceStack(path);
 
@@ -45,14 +47,19 @@ public final class SealyModLang {
 
         for (Resource resource : langFiles) {
             try (var stream = resource.open()) {
+                String fileContents = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
                 JsonObject obj = JsonParser.parseString(
-                        new String(stream.readAllBytes(), StandardCharsets.UTF_8)
+                        fileContents
                 ).getAsJsonObject();
 
                 unmergedLangData.add(obj);
 
             } catch (Exception e) {
-                System.out.println("[SealyMod] Failed reading lang pack: " + resource);
+                try {
+                    System.out.println("[SealyMod] Failed reading lang pack: "+ resource.knownPackInfo().toString());
+                } catch (Exception f) {
+                    System.out.println("[SealyMod] Failed reading lang pack");
+                }
             }
         }
 

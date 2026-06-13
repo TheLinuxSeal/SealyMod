@@ -4,6 +4,7 @@ package com.thelinuxseal.sealymod.client.config.categories.sealyhud;
 
 import com.thelinuxseal.sealymod.client.config.SealyModConfig;
 import com.thelinuxseal.sealymod.client.config.SealyModConfigHandler;
+import com.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
 import com.thelinuxseal.sealymod.client.sealyhud.SealyHUDElement;
 import com.thelinuxseal.sealymod.client.sealyhud.SealyHUDElementManager;
 import java.util.ArrayList;
@@ -13,7 +14,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
 public class ConfigSealyHUDWidgetsScreen extends Screen {
@@ -28,7 +28,7 @@ public class ConfigSealyHUDWidgetsScreen extends Screen {
     private boolean saved = true;
 
     public ConfigSealyHUDWidgetsScreen(Screen parent, SealyModConfig config) {
-        super(Component.literal("SealyHUD Element Dashboard"));
+        super(SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.title"));
         this.parent = parent;
         this.config = config;
     }
@@ -44,21 +44,21 @@ public class ConfigSealyHUDWidgetsScreen extends Screen {
             int fullWidth = this.width - 40;
 
 
-            Checkbox checkbox = Checkbox.builder(Component.literal("Enabled"), this.font).onValueChange((cb, value) -> element.setEnabled(value)).pos(20, initialY+1).selected(element.isEnabled()).build();
-            Button deleteBtn = Button.builder(Component.literal("❌ Delete"), (btn) -> {
+            Checkbox checkbox = Checkbox.builder(SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.widget.enableCheckbox"), this.font).onValueChange((cb, value) -> element.setEnabled(value)).pos(20, initialY+1).selected(element.isEnabled()).build();
+            Button deleteBtn = Button.builder(SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.widget.deleteButton"), (btn) -> {
                 this.localWidgetData.remove(element);
                 this.reload();
             }).bounds(this.width - 85, initialY, 65, 20).build();
             int intInputsWidth = fullWidth - checkbox.getWidth() - 69;
-            EditBox xInput = new EditBox(this.font, checkbox.getWidth()+22, initialY, (int)((intInputsWidth -2)*0.4F), 20, Component.literal("X Formula"));
+            EditBox xInput = new EditBox(this.font, checkbox.getWidth()+22, initialY, (int)((intInputsWidth -2)*0.4F), 20, SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.widget.xFormula"));
             xInput.setValue(element.getXFormula());
-            EditBox yInput = new EditBox(this.font, (int)(checkbox.getWidth()+(intInputsWidth-2)*0.4F+24), initialY, (int)((intInputsWidth -2)*0.4F), 20, Component.literal("Y Formula"));
+            EditBox yInput = new EditBox(this.font, (int)(checkbox.getWidth()+(intInputsWidth-2)*0.4F+24), initialY, (int)((intInputsWidth -2)*0.4F), 20, SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.widget.yFormula"));
             yInput.setValue(element.getYFormula());
-            EditBox textSizeInput = new EditBox(this.font, (int)(checkbox.getWidth()+(intInputsWidth-2)*0.8F+26), initialY, (int)((intInputsWidth -2)*0.2F), 20, Component.literal("Text Size"));
+            EditBox textSizeInput = new EditBox(this.font, (int)(checkbox.getWidth()+(intInputsWidth-2)*0.8F+26), initialY, (int)((intInputsWidth -2)*0.2F), 20, SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.widget.textSizeFormula"));
             textSizeInput.setValue(element.getTextSizeFormula());
 
-            Checkbox advancedParseCheckbox = Checkbox.builder(Component.literal("Advanced Mode"), this.font).onValueChange((cb, value) -> element.setAdvancedParseMode(value)).pos(20, initialY+23).selected(element.getAdvancedParseMode()).build();
-            EditBox textInput = new EditBox(this.font, 22 + advancedParseCheckbox.getWidth(), initialY + 22, fullWidth - 2 - advancedParseCheckbox.getWidth(), 20, Component.literal("Text"));
+            Checkbox advancedParseCheckbox = Checkbox.builder(SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.widget.advancedModeCheckbox"), this.font).onValueChange((cb, value) -> element.setAdvancedParseMode(value)).pos(20, initialY+23).selected(element.getAdvancedParseMode()).build();
+            EditBox textInput = new EditBox(this.font, 22 + advancedParseCheckbox.getWidth(), initialY + 22, fullWidth - 2 - advancedParseCheckbox.getWidth(), 20, SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.widget.textInput"));
             textInput.setValue(element.getTextTemplate());
 
             xInput.setResponder(element::setXFormula);
@@ -76,13 +76,13 @@ public class ConfigSealyHUDWidgetsScreen extends Screen {
             this.UIEntries.add(new WidgetRowEntry(element, checkbox, xInput, yInput, textSizeInput, advancedParseCheckbox, textInput, deleteBtn, initialY));
         }
 
-        this.addRenderableWidget(Button.builder(Component.literal("➕ Add Widget"), (btn) -> {
+        this.addRenderableWidget(Button.builder(SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.addWidgetButton"), (btn) -> {
             this.saveValToTarget();
             this.localWidgetData.add(new SealyHUDElement("", "", "", "", false, false));
             this.reload();
         }).bounds(20, this.height - 35, 100, 20).build());
-        this.addRenderableWidget(Button.builder(Component.literal("Save"), (btn) -> this.applyAndSave()).bounds(this.width - 230, this.height - 35, 100, 20).build());
-        this.addRenderableWidget(Button.builder(Component.literal("Exit"), (btn) -> this.minecraft.setScreen(this.parent)).bounds(this.width - 120, this.height - 35, 100, 20).build());
+        this.addRenderableWidget(Button.builder(SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.save"), (btn) -> this.applyAndSave()).bounds(this.width - 230, this.height - 35, 100, 20).build());
+        this.addRenderableWidget(Button.builder(SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.exit"), (btn) -> this.minecraft.setScreen(this.parent)).bounds(this.width - 120, this.height - 35, 100, 20).build());
         this.updateWidgetPositions();
     }
 
@@ -156,9 +156,9 @@ public class ConfigSealyHUDWidgetsScreen extends Screen {
     }
 
     public void render(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.fill(0, 0, this.width, 40, -15592942);
-        graphics.text(this.font, "HUD Elements Master Control Panel", 20, 15, 16777215, true);
-        graphics.fill(0, this.height - 50 + 15, this.width, this.height, -15592942);
+        //graphics.fill(0, 0, this.width, 40, -15592942);
+        graphics.text(this.font, SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.title"), 20, 15, 16777215, true);
+        //graphics.fill(0, this.height - 50 + 15, this.width, this.height, -15592942);
     }
     private record WidgetRowEntry(SealyHUDElement targetElement, Checkbox checkbox, EditBox xInput, EditBox yInput, EditBox textSizeInput, Checkbox advancedParseCheckbox, EditBox textInput, Button deleteBtn, int baseY) {}
 }

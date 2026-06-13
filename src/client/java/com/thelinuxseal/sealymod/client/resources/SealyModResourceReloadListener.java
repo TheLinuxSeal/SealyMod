@@ -8,7 +8,7 @@ import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 
 public class SealyModResourceReloadListener extends SimplePreparableReloadListener<Void> implements IdentifiableResourceReloadListener {
-    private final Identifier id = Identifier.fromNamespaceAndPath("sealymod", "resourceReloadListener");
+    private final Identifier id = Identifier.fromNamespaceAndPath("sealymod", "resource_reload_listener");
 
     @Override
     public Identifier getFabricId() {

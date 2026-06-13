@@ -1,21 +1,21 @@
 package com.thelinuxseal.sealymod.client.config.categories.misc;
 
 import com.thelinuxseal.sealymod.client.config.SealyModConfig;
+import com.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionDescription;
 import dev.isxander.yacl3.api.OptionGroup;
 import dev.isxander.yacl3.api.controller.FloatFieldControllerBuilder;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
 
 public class ConfigCategoryFireBillboardFix {
     // Changed name to 'get' and added 'static' for clean access
     public static OptionGroup get(Screen parent, SealyModConfig config) {
         return OptionGroup.createBuilder()
-                .name(Component.literal("Fire Billboard Renderer Fixes"))
-                .description(OptionDescription.of(Component.literal("Fine-tune the scaling and tapering of fire effects on entities.")))
+                .name(SealyModLang.getAsComponent("sealymod.config.misc.fireRenderer.title"))
+                .description(OptionDescription.of(SealyModLang.getAsComponent("sealymod.config.misc.fireRenderer.desc")))
                 .option(Option.<Float>createBuilder()
-                        .name(Component.literal("Fire Billboard Exponential Width Multiplier"))
+                        .name(SealyModLang.getAsComponent("sealymod.config.misc.fireRenderer.widthMult"))
                         .binding(
                                 0.9F,
                                 () -> config.fireBillboardExponentialXMult,
@@ -26,7 +26,7 @@ public class ConfigCategoryFireBillboardFix {
                         .build()
                 )
                 .option(Option.<Float>createBuilder()
-                        .name(Component.literal("Fire Billboard Exponential Height Multiplier"))
+                        .name(SealyModLang.getAsComponent("sealymod.config.misc.fireRenderer.heightMult"))
                         .binding(
                                 0.9F,
                                 () -> config.fireBillboardExponentialYMult,
@@ -37,7 +37,7 @@ public class ConfigCategoryFireBillboardFix {
                         .build()
                 )
                 .option(Option.<Float>createBuilder()
-                        .name(Component.literal("Fire Billboard Exponential Width Initial Value"))
+                        .name(SealyModLang.getAsComponent("sealymod.config.misc.fireRenderer.widthStart"))
                         .binding(
                                 0.8F,
                                 () -> config.fireBillboardExponentialXStart,
@@ -48,7 +48,7 @@ public class ConfigCategoryFireBillboardFix {
                         .build()
                 )
                 .option(Option.<Float>createBuilder()
-                        .name(Component.literal("Fire Billboard Exponential Height Initial Value"))
+                        .name(SealyModLang.getAsComponent("sealymod.config.misc.fireRenderer.heightStart"))
                         .binding(
                                 0.8F,
                                 () -> config.fireBillboardExponentialYStart,
