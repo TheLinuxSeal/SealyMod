@@ -30,11 +30,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GhostCommands {
-    private static final AtomicInteger GHOST_ENTITY_ID_COUNTER = new AtomicInteger(20000000 + new Random().nextInt(5000000));
+    private static final AtomicInteger GHOST_ENTITY_ID_COUNTER = new AtomicInteger(-1);
 
     public static LiteralArgumentBuilder<FabricClientCommandSource> build(CommandBuildContext registryAccess) {
 
@@ -152,7 +151,7 @@ public class GhostCommands {
         if (e != null) {
             // Position the entity directly at the client's current location
             e.setPos(new Vec3(client.player.getX(),client.player.getY(),client.player.getZ()));
-            e.setId(GHOST_ENTITY_ID_COUNTER.incrementAndGet());
+            e.setId(GHOST_ENTITY_ID_COUNTER.getAndDecrement());
             client.level.addEntity(e);
             return 1;
         }
