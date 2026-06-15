@@ -13,7 +13,7 @@ public class ConfigCategorySealyHUD {
         return ConfigCategory.createBuilder()
                 .name(SealyModLang.getAsComponent("sealymod.config.sealyhud.title"))
                 .option(Option.<Boolean>createBuilder()
-                        .name(SealyModLang.getAsComponent("sealymod.config.general.enableSealyhud"))
+                        .name(SealyModLang.getAsComponent("sealymod.config.sealyhud.enable"))
                         .binding(
                                 false,
                                 () -> config.enableSealyHUD,
