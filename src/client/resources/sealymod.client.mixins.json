@@ -1,9 +1,9 @@
 {
 	"required": true,
-	"package": "com.thelinuxseal.sealymod.client.mixin",
+	"package": "seal.thelinuxseal.sealymod.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"ExampleClientMixin"
+      "SealyModFireBillboardFix"
 	],
 	"injectors": {
 		"defaultRequire": 1

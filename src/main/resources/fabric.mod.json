@@ -16,23 +16,19 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.thelinuxseal.sealymod.SealyMod"
+			"seal.thelinuxseal.sealymod.SealyMod"
 		],
 		"client": [
-			"com.thelinuxseal.sealymod.client.SealyModClient"
+			"seal.thelinuxseal.sealymod.client.SealyModClient"
 		],
 		"modmenu": [
-			"com.thelinuxseal.sealymod.client.config.SealyModMenuIntegration"
+			"seal.thelinuxseal.sealymod.client.config.SealyModMenuIntegration"
 		]
 	},
 	"mixins": [
 		"sealymod.mixins.json",
 		{
 			"config": "sealymod.client.mixins.json",
-			"environment": "client"
-		},
-		{
-			"config": "firebillboardfix.sealymod.clients.mixins.json",
 			"environment": "client"
 		}
 	],
