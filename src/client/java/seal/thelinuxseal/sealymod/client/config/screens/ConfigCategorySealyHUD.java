@@ -1,7 +1,7 @@
 package seal.thelinuxseal.sealymod.client.config.screens;
 
 import seal.thelinuxseal.sealymod.client.config.SealyModConfig;
-import seal.thelinuxseal.sealymod.client.sealyhud.SealyHUDEditor;
+import seal.thelinuxseal.sealymod.client.sealyhud.editor.SealyHUDEditor;
 import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
 import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
@@ -27,7 +27,7 @@ public class ConfigCategorySealyHUD {
                         .description(OptionDescription.of(SealyModLang.getAsComponent("sealymod.config.sealyhud.button.desc")))
                         .action((yaclScreen, btnOpt) -> {
                             // Drop seamlessly out of YACL and jump into your master panel layout!
-                            Minecraft.getInstance().setScreen(new SealyHUDEditor(yaclScreen, config));
+                            Minecraft.getInstance().setScreenAndShow(new SealyHUDEditor(yaclScreen, config));
                         })
                         .build())
                 .build();

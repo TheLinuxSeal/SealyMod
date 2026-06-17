@@ -1,6 +1,7 @@
 package seal.thelinuxseal.sealymod.client.resources.lang;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -35,6 +36,16 @@ public final class SealyModLang {
 
     public static Component getAsComponent(String key){
         return Component.literal(get(key));
+    }
+
+    public static JsonElement getAsJsonObj(String key) {
+        // If data isn't loaded or missing the key, wrap the fallback key into a JsonPrimitive
+        if (langData == null || !langData.has(key)) {
+            return new JsonPrimitive(key);
+        }
+
+        // Otherwise, return the actual element (which could be your JsonObject)
+        return langData.get(key);
     }
 
     public static void reload() {

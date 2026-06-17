@@ -4,19 +4,19 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 
 public final class ClientCameraContext {
-    public double exactX(){return Minecraft.getInstance().gameRenderer.getMainCamera().position().x;}
-    public double exactY(){return Minecraft.getInstance().gameRenderer.getMainCamera().position().y;}
-    public double exactZ(){return Minecraft.getInstance().gameRenderer.getMainCamera().position().z;}
+    public double exactX(){return Minecraft.getInstance().gameRenderer.mainCamera().position().x;}
+    public double exactY(){return Minecraft.getInstance().gameRenderer.mainCamera().position().y;}
+    public double exactZ(){return Minecraft.getInstance().gameRenderer.mainCamera().position().z;}
     public String x(){return String.format("%.2f", exactX());}
     public String y(){return String.format("%.2f", exactY());}
     public String z(){return String.format("%.2f", exactZ());}
-    public int blockX(){return Minecraft.getInstance().gameRenderer.getMainCamera().blockPosition().getX();}
-    public int blockY(){return Minecraft.getInstance().gameRenderer.getMainCamera().blockPosition().getY();}
-    public int blockZ(){return Minecraft.getInstance().gameRenderer.getMainCamera().blockPosition().getZ();}
-    public double yaw(){return Minecraft.getInstance().gameRenderer.getMainCamera().yRot();}
-    public double pitch(){return Minecraft.getInstance().gameRenderer.getMainCamera().xRot();}
+    public int blockX(){return Minecraft.getInstance().gameRenderer.mainCamera().blockPosition().getX();}
+    public int blockY(){return Minecraft.getInstance().gameRenderer.mainCamera().blockPosition().getY();}
+    public int blockZ(){return Minecraft.getInstance().gameRenderer.mainCamera().blockPosition().getZ();}
+    public double yaw(){return Minecraft.getInstance().gameRenderer.mainCamera().yRot();}
+    public double pitch(){return Minecraft.getInstance().gameRenderer.mainCamera().xRot();}
     public String facing(){
-        Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+        Camera camera = Minecraft.getInstance().gameRenderer.mainCamera();
         String direction = "...";
         if (camera != null) {
             float yaw = camera.yRot();

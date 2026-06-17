@@ -143,10 +143,9 @@ public class GhostCommands {
 
     private static int ghostSummon(CommandContext<FabricClientCommandSource> context) {
         Minecraft client = Minecraft.getInstance();
-        Holder.Reference<EntityType<?>> ref =
-                context.getArgument("entity", Holder.Reference.class);
+        EntityType<?> type =
+                (EntityType<?>) context.getArgument("entity", Holder.Reference.class).value();
 
-        EntityType<?> type = ref.value();
         Entity e = type.create(client.level, EntitySpawnReason.LOAD);
         if (e != null) {
             // Position the entity directly at the client's current location

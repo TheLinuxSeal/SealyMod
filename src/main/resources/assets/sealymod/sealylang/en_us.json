@@ -13,15 +13,18 @@
   "sealymod.config.sealyhud.enable": "Enable SealyHUD",
   "sealymod.config.sealyhud.button": "Open SealyHUD Editor",
   "sealymod.config.sealyhud.button.desc": "Opens a dedicated screen to customize and toggle all layout items side-by-side.",
-  "sealymod.config.sealyhud.editor.title": "SealyHUD Editor",
-  "sealymod.config.sealyhud.editor.widget.enableCheckbox": "Enable",
-  "sealymod.config.sealyhud.editor.widget.deleteButton": "X Delete",
-  "sealymod.config.sealyhud.editor.widget.xFormula": "X Position Formula",
-  "sealymod.config.sealyhud.editor.widget.yFormula": "Y Position Formula",
-  "sealymod.config.sealyhud.editor.widget.textSizeFormula": "Text Size Formula",
-  "sealymod.config.sealyhud.editor.widget.advancedModeCheckbox": "Advanced Mode",
-  "sealymod.config.sealyhud.editor.widget.textInput": "Text",
-  "sealymod.config.sealyhud.editor.addWidgetButton": "+ Add Widget",
-  "sealymod.config.sealyhud.editor.save": "Save",
-  "sealymod.config.sealyhud.editor.exit": "Exit"
+  "sealymod.sealyhud.editor.title": "SealyHUD Editor",
+  "sealymod.sealyhud.editor.widget.enableCheckbox": "Enable",
+  "sealymod.sealyhud.editor.widget.deleteButton": "X Delete",
+  "sealymod.sealyhud.editor.widget.xFormula": "X Position Formula",
+  "sealymod.sealyhud.editor.widget.yFormula": "Y Position Formula",
+  "sealymod.sealyhud.editor.widget.textSizeFormula": "Text Size Formula",
+  "sealymod.sealyhud.editor.widget.advancedModeCheckbox": "Advanced Mode",
+  "sealymod.sealyhud.editor.widget.textInput": "Text",
+  "sealymod.sealyhud.editor.addWidgetButton": "+ Add Widget",
+  "sealymod.sealyhud.editor.save": "Save",
+  "sealymod.sealyhud.editor.exit": "Exit",
+  "sealymod.sealyhud.editor.docs": [
+
+  ]
 }

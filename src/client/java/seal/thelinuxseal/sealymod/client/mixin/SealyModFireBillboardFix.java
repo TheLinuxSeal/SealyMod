@@ -3,56 +3,63 @@ package seal.thelinuxseal.sealymod.client.mixin;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import seal.thelinuxseal.sealymod.client.config.SealyModConfigHandler;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.feature.FlameFeatureRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.model.ModelBakery;
-import net.minecraft.client.resources.model.sprite.AtlasManager;
 import net.minecraft.util.LightCoordsUtil;
-import org.joml.Quaternionf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(FlameFeatureRenderer.class)
 public class SealyModFireBillboardFix {
+
     @Shadow
     private static void fireVertex(
-            PoseStack.Pose pose,
-            VertexConsumer buffer,
-            float x,
-            float y,
-            float z,
-            float u,
-            float v,
-            int lightCoords
+            final PoseStack.Pose pose,
+            final VertexConsumer buffer,
+            final float x,
+            final float y,
+            final float z,
+            final float u,
+            final float v,
+            final int lightCoords
     ) {
         throw new AssertionError();
     }
+
     /**
      * @author TheLinuxSeal
-     * @reason Adjust fire billboard dimensions
+     * @reason Adjust fire billboard dimensions for new rendering engine structure
      */
-    @Overwrite()
-    private void renderFlame(final PoseStack.Pose pose, final MultiBufferSource bufferSource, final EntityRenderState state, final Quaternionf rotation, final AtlasManager atlasManager) {
-        TextureAtlasSprite fire1 = atlasManager.get(ModelBakery.FIRE_0);
-        TextureAtlasSprite fire2 = atlasManager.get(ModelBakery.FIRE_1);
+    @Overwrite
+    private void prepare(
+            final FlameFeatureRenderer.Submit submit,
+            final VertexConsumer buffer,
+            final TextureAtlasSprite fire1,
+            final TextureAtlasSprite fire2
+    ) {
+        PoseStack.Pose pose = submit.pose();
+        EntityRenderState state = submit.entityRenderState();
+
+        // CUSTOM: Adjusted scale multiplier removed
         float s = state.boundingBoxWidth;
         pose.scale(s, s, s);
+
+        // CUSTOM: Custom configuration values initialized
         float r = SealyModConfigHandler.get().fireBillboardExponentialXStart;
         float ry = SealyModConfigHandler.get().fireBillboardExponentialYStart;
+
         float xo = 0.0F;
         float h = state.boundingBoxHeight / s;
         float yo = 0.0F;
-        pose.rotate(rotation);
-        pose.translate(0.0F, 0.0F, 0.3F - (float)((int)h) * 0.02F);
+        pose.rotate(submit.rotation());
+        pose.translate(0.0F, 0.0F, 0.3F - (int)h * 0.02F);
         float zo = 0.0F;
         int ss = 0;
-        VertexConsumer buffer = bufferSource.getBuffer(Sheets.cutoutBlockSheet());
+        int lightCoords = LightCoordsUtil.withBlock(state.lightCoords, 15);
 
-        for(int lightCoords = LightCoordsUtil.withBlock(state.lightCoords, 15); h > 0.0F; ++ss) {
+        while (h > 0.0F) {
             TextureAtlasSprite tex = ss % 2 == 0 ? fire1 : fire2;
             float u0 = tex.getU0();
             float v0 = tex.getV0();
@@ -64,16 +71,21 @@ public class SealyModFireBillboardFix {
                 u0 = tmp;
             }
 
+            // CUSTOM: Vertex coordinates modified using custom layout logic
             fireVertex(pose, buffer, -r - 0.0F, 0.0F - yo, zo, u1, v1, lightCoords);
             fireVertex(pose, buffer, r - 0.0F, 0.0F - yo, zo, u0, v1, lightCoords);
-            fireVertex(pose, buffer, r - 0.0F, - yo + 2*ry, zo, u0, v0, lightCoords);
-            fireVertex(pose, buffer, -r - 0.0F, - yo + 2*ry, zo, u1, v0, lightCoords);
+            fireVertex(pose, buffer, r - 0.0F, -yo + 2 * ry, zo, u0, v0, lightCoords);
+            fireVertex(pose, buffer, -r - 0.0F, -yo + 2 * ry, zo, u1, v0, lightCoords);
+
             h -= 0.45F;
             yo -= 0.45F;
+
+            // CUSTOM: Custom multipliers applied here
             r *= SealyModConfigHandler.get().fireBillboardExponentialXMult;
             ry *= SealyModConfigHandler.get().fireBillboardExponentialYMult;
-            zo -= 0.03F;
-        }
 
+            zo -= 0.03F;
+            ss++;
+        }
     }
 }

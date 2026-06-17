@@ -1,6 +1,6 @@
 
 
-package seal.thelinuxseal.sealymod.client.sealyhud;
+package seal.thelinuxseal.sealymod.client.sealyhud.editor;
 
 import seal.thelinuxseal.sealymod.client.config.SealyModConfig;
 import seal.thelinuxseal.sealymod.client.config.SealyModConfigHandler;
@@ -26,6 +26,7 @@ public class SealyHUDEditor extends Screen {
     private final int bottomClipY = 50;
     private ArrayList<SealyHUDElement> localWidgetData;
     private boolean saved = true;
+    private boolean helpScreen = false;
 
     public SealyHUDEditor(Screen parent, SealyModConfig config) {
         super(SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.title"));
@@ -83,7 +84,7 @@ public class SealyHUDEditor extends Screen {
             this.reload();
         }).bounds(20, this.height - 35, 100, 20).build());
         this.addRenderableWidget(Button.builder(SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.save"), (btn) -> this.applyAndSave()).bounds(this.width - 230, this.height - 35, 100, 20).build());
-        this.addRenderableWidget(Button.builder(SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.exit"), (btn) -> this.minecraft.setScreen(this.parent)).bounds(this.width - 120, this.height - 35, 100, 20).build());
+        this.addRenderableWidget(Button.builder(SealyModLang.getAsComponent("sealymod.config.sealyhud.editor.exit"), (btn) -> this.minecraft.setScreenAndShow(this.parent)).bounds(this.width - 120, this.height - 35, 100, 20).build());
         this.updateWidgetPositions();
     }
 
@@ -119,7 +120,7 @@ public class SealyHUDEditor extends Screen {
             entry.textSizeInput.setY(newY);
             entry.deleteBtn.setY(newY);
             entry.textInput.setY(newY + 22);
-            boolean isVisible = newY >= topClipY && newY + 42 <= bottomLimit;
+            boolean isVisible = newY >= topClipY && newY + 42 <= bottomLimit && !this.helpScreen;
             entry.checkbox.visible = isVisible;
             entry.xInput.visible = isVisible;
             entry.yInput.visible = isVisible;
