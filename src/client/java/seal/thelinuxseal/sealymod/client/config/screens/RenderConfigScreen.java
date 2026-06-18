@@ -1,7 +1,7 @@
 package seal.thelinuxseal.sealymod.client.config.screens;
 
 import seal.thelinuxseal.sealymod.client.config.data.SealyModConfig;
-import seal.thelinuxseal.sealymod.client.config.screens.render.FireBillboardTweakConfigScreen;
+import seal.thelinuxseal.sealymod.client.config.screens.render.FireBillboardTweakConfigGroup;
 import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
 import dev.isxander.yacl3.api.ConfigCategory;
 import net.minecraft.client.gui.screens.Screen;
@@ -13,7 +13,7 @@ public class RenderConfigScreen {
                 .name(SealyModLang.getAsComponent("sealymod.config.render.title"))
 
                 // Create a grouped sub-category
-                .group(FireBillboardTweakConfigScreen.get(parent, config))
+                .group(FireBillboardTweakConfigGroup.get(parent, config))
                 .build(); // Builds the Misc Category
     }
 }

@@ -9,7 +9,7 @@ import dev.isxander.yacl3.api.OptionGroup;
 import dev.isxander.yacl3.api.controller.FloatFieldControllerBuilder;
 import net.minecraft.client.gui.screens.Screen;
 
-public class FireBillboardTweakConfigScreen {
+public class FireBillboardTweakConfigGroup {
     // Changed name to 'get' and added 'static' for clean access
     public static OptionGroup get(Screen parent, SealyModConfig config) {
         return OptionGroup.createBuilder()
