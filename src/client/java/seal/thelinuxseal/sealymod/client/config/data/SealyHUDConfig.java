@@ -1,28 +1,18 @@
-package seal.thelinuxseal.sealymod.client.config;
+package seal.thelinuxseal.sealymod.client.config.data;
 
-import seal.thelinuxseal.sealymod.client.sealyhud.element.SealyHUDElement;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
+import seal.thelinuxseal.sealymod.client.sealyhud.element.SealyHUDElement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SealyModConfig {
-
+public class SealyHUDConfig {
     @SerialEntry
-    public boolean enableSealyHUD = false;
-    @SerialEntry
-    public float fireBillboardExponentialXMult = 0.9F;
-    @SerialEntry
-    public float fireBillboardExponentialYMult = 0.9F;
-    @SerialEntry
-    public float fireBillboardExponentialXStart = 0.8F;
-    @SerialEntry
-    public float fireBillboardExponentialYStart = 0.8F;
-
+    public boolean enable = false;
     @SerialEntry
     public List<SealyHUDElement> hudWidgets = new ArrayList<>();
 
-    public SealyModConfig() {
+    public SealyHUDConfig() {
         // Provide a default layout widget so the HUD list isn't empty on the very first launch
         this.hudWidgets.add(new SealyHUDElement("", "", "0.5",  "", false));
     }

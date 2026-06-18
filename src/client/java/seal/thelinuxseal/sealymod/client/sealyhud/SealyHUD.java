@@ -15,13 +15,13 @@ public class SealyHUD {
 
     public void init() {
         SealyHUDTextParser.init();
-        SealyHUDElementManager.loadFromConfig(SealyModConfigHandler.get().hudWidgets);
+        SealyHUDElementManager.loadFromConfig(SealyModConfigHandler.get().sealyHUD.hudWidgets);
         HudElementRegistry.addLast(Identifier.fromNamespaceAndPath(SealyMod.MOD_ID, "last_element"), this.hudLayer());
     }
 
     private HudElement hudLayer() {
         return (graphics, deltaTracker) -> {
-            if (!SealyModConfigHandler.get().enableSealyHUD) {
+            if (!SealyModConfigHandler.get().sealyHUD.enable) {
                 return;
             }
             Minecraft minecraft = Minecraft.getInstance();

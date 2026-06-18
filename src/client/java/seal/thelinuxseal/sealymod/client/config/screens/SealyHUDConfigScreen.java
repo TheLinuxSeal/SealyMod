@@ -1,6 +1,6 @@
 package seal.thelinuxseal.sealymod.client.config.screens;
 
-import seal.thelinuxseal.sealymod.client.config.SealyModConfig;
+import seal.thelinuxseal.sealymod.client.config.data.SealyModConfig;
 import seal.thelinuxseal.sealymod.client.sealyhud.editor.SealyHUDEditor;
 import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
 import dev.isxander.yacl3.api.*;
@@ -8,7 +8,7 @@ import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 
-public class ConfigCategorySealyHUD {
+public class SealyHUDConfigScreen {
     public static ConfigCategory get(Screen parent, SealyModConfig config) {
         return ConfigCategory.createBuilder()
                 .name(SealyModLang.getAsComponent("sealymod.config.sealyhud.title"))
@@ -16,8 +16,8 @@ public class ConfigCategorySealyHUD {
                         .name(SealyModLang.getAsComponent("sealymod.config.sealyhud.enable"))
                         .binding(
                                 false,
-                                () -> config.enableSealyHUD,
-                                val -> config.enableSealyHUD = val
+                                () -> config.sealyHUD.enable,
+                                val -> config.sealyHUD.enable = val
                         )
                         .controller(TickBoxControllerBuilder::create)
                         .build()
@@ -26,7 +26,6 @@ public class ConfigCategorySealyHUD {
                         .name(SealyModLang.getAsComponent("sealymod.config.sealyhud.button"))
                         .description(OptionDescription.of(SealyModLang.getAsComponent("sealymod.config.sealyhud.button.desc")))
                         .action((yaclScreen, btnOpt) -> {
-                            // Drop seamlessly out of YACL and jump into your master panel layout!
                             Minecraft.getInstance().setScreenAndShow(new SealyHUDEditor(yaclScreen, config));
                         })
                         .build())

@@ -8,6 +8,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
 
 import com.google.gson.GsonBuilder;
+import seal.thelinuxseal.sealymod.client.config.data.SealyModConfig;
 
 import java.nio.file.Path;
 

@@ -4,10 +4,7 @@ import seal.thelinuxseal.sealymod.client.sealyhud.parser.SealyHUDTextParser;
 import net.minecraft.client.Minecraft;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
-import org.apache.commons.jexl3.JexlBuilder;
-import org.apache.commons.jexl3.JexlEngine;
 import org.apache.commons.jexl3.JxltEngine;
-import org.apache.commons.jexl3.introspection.JexlPermissions;
 
 
 public class SealyHUDElement {
@@ -22,8 +19,6 @@ public class SealyHUDElement {
     private transient Expression yExpr;
     private transient Expression textSizeExpr;
     private transient JxltEngine.Expression jexlTextExpr;
-    private transient static final JexlEngine jexl = new JexlBuilder().cache(512).strict(true).silent(false).permissions(JexlPermissions.UNRESTRICTED).create();
-    private transient static final JxltEngine jxlt = jexl.createJxltEngine();
 
     // Default constructor for serialization/initial default values
     public SealyHUDElement(String xFormula, String yFormula, String textSizeFormula, String textTemplate, boolean enabled) {
@@ -59,7 +54,7 @@ public class SealyHUDElement {
         } catch (Exception e) {
             this.textSizeExpr = new ExpressionBuilder("0").build();
         }
-        this.jexlTextExpr = jxlt.createExpression(this.textTemplate);
+        this.jexlTextExpr = SealyHUDTextParser.createExpr(this.textTemplate);
     }
 
     public int getX() {

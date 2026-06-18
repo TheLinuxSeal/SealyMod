@@ -47,8 +47,8 @@ public class SealyModFireBillboardFix {
         pose.scale(s, s, s);
 
         // CUSTOM: Custom configuration values initialized
-        float r = SealyModConfigHandler.get().fireBillboardExponentialXStart;
-        float ry = SealyModConfigHandler.get().fireBillboardExponentialYStart;
+        float r = SealyModConfigHandler.get().render.fireBillboardExponentialXStart;
+        float ry = SealyModConfigHandler.get().render.fireBillboardExponentialYStart;
 
         float xo = 0.0F;
         float h = state.boundingBoxHeight / s;
@@ -81,8 +81,8 @@ public class SealyModFireBillboardFix {
             yo -= 0.45F;
 
             // CUSTOM: Custom multipliers applied here
-            r *= SealyModConfigHandler.get().fireBillboardExponentialXMult;
-            ry *= SealyModConfigHandler.get().fireBillboardExponentialYMult;
+            r *= SealyModConfigHandler.get().render.fireBillboardExponentialXMult;
+            ry *= SealyModConfigHandler.get().render.fireBillboardExponentialYMult;
 
             zo -= 0.03F;
             ss++;

@@ -23,7 +23,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.permissions.PermissionSet;
-import net.minecraft.util.Mth; // Used for safe coordinate floor calculations
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
@@ -70,9 +69,8 @@ public class GhostCommands {
         return ClientCommands.literal("ghost").then(setBlock).then(fill).then(give).then(summon);
     }
 
-    private static Vec3 fixCoords(Coordinates coordinatesInput){
-        Minecraft client = Minecraft.getInstance();
-        CommandSourceStack fakeStack = new CommandSourceStack(
+    private static CommandSourceStack makeFakeStack(Minecraft client){
+        return new CommandSourceStack(
                 CommandSource.NULL,                        // Base source
                 client.player.position(),                   // Vec3 Position
                 client.player.getRotationVector(),          // Vec2 Rotation (Pitch/Yaw)
@@ -84,23 +82,23 @@ public class GhostCommands {
                 client.player                               // Entity context anchor
         );
 
-        return coordinatesInput.getPosition(fakeStack);
     }
 
     private static int ghostSetBlock(CommandContext<FabricClientCommandSource> context) {
         Minecraft client = Minecraft.getInstance();
         if (client.level == null) return 0;
-
+        if (client.player == null) return 0;
         // Extract the vector evaluated against client player position/camera orientation
-        Vec3 coords = fixCoords(context.getArgument("pos",Coordinates.class));
-        int x = Mth.floor(coords.x);
-        int y = Mth.floor(coords.y);
-        int z = Mth.floor(coords.z);
+        Coordinates coords =
+                context.getArgument("pos", Coordinates.class);
+
+        BlockPos pos =
+                coords.getBlockPos(makeFakeStack(client));
 
         BlockInput input = context.getArgument("block", BlockInput.class);
 
         client.level.setBlock(
-                new BlockPos(x, y, z),
+                pos,
                 input.getState(),
                 3
         );
@@ -111,14 +109,21 @@ public class GhostCommands {
     private static int ghostFill(CommandContext<FabricClientCommandSource> context) {
         Minecraft client = Minecraft.getInstance();
         if (client.level == null) return 0;
+        if (client.player == null) return 0;
 
         // Safely extract and floor the "from" coordinates
-        Vec3 coords1 = fixCoords(context.getArgument("from",Coordinates.class));
-        BlockPos from = new BlockPos(Mth.floor(coords1.x), Mth.floor(coords1.y), Mth.floor(coords1.z));
+        Coordinates coords1 =
+                context.getArgument("pos", Coordinates.class);
+
+        BlockPos from =
+                coords1.getBlockPos(makeFakeStack(client));
 
         // Safely extract and floor the "to" coordinates
-        Vec3 coords2 = fixCoords(context.getArgument("to",Coordinates.class));
-        BlockPos to = new BlockPos(Mth.floor(coords2.x), Mth.floor(coords2.y), Mth.floor(coords2.z));
+        Coordinates coords2 =
+                context.getArgument("pos", Coordinates.class);
+
+        BlockPos to =
+                coords2.getBlockPos(makeFakeStack(client));
 
         BlockInput input = context.getArgument("block", BlockInput.class);
 
@@ -131,6 +136,7 @@ public class GhostCommands {
 
     private static int ghostGive(CommandContext<FabricClientCommandSource> context) {
         Minecraft client = Minecraft.getInstance();
+        if (client.player == null) return 0;
         ItemInput input = context.getArgument("item", ItemInput.class);
         try {
             ItemStack itemStack = input.createItemStack(context.getArgument("amount", Integer.class));
@@ -142,7 +148,10 @@ public class GhostCommands {
     }
 
     private static int ghostSummon(CommandContext<FabricClientCommandSource> context) {
+
         Minecraft client = Minecraft.getInstance();
+        if (client.level == null) return 0;
+        if (client.player == null) return 0;
         EntityType<?> type =
                 (EntityType<?>) context.getArgument("entity", Holder.Reference.class).value();
 
