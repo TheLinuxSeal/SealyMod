@@ -3,7 +3,7 @@
 	"package": "seal.thelinuxseal.sealymod.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-      "SealyModFireBillboardFix"
+		"SealyModFireBillboardTweak"
 	],
 	"injectors": {
 		"defaultRequire": 1

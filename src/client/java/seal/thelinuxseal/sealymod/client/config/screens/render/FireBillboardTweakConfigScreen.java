@@ -1,5 +1,6 @@
 package seal.thelinuxseal.sealymod.client.config.screens.render;
 
+import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import seal.thelinuxseal.sealymod.client.config.data.SealyModConfig;
 import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
 import dev.isxander.yacl3.api.Option;
@@ -8,12 +9,22 @@ import dev.isxander.yacl3.api.OptionGroup;
 import dev.isxander.yacl3.api.controller.FloatFieldControllerBuilder;
 import net.minecraft.client.gui.screens.Screen;
 
-public class FireBillboardFixConfigScreen {
+public class FireBillboardTweakConfigScreen {
     // Changed name to 'get' and added 'static' for clean access
     public static OptionGroup get(Screen parent, SealyModConfig config) {
         return OptionGroup.createBuilder()
                 .name(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.title"))
                 .description(OptionDescription.of(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.desc")))
+                .option(Option.<Boolean>createBuilder()
+                        .name(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.enable"))
+                        .binding(
+                                false,
+                                () -> config.render.fireBillboardEnable,
+                                val -> config.render.fireBillboardEnable = val
+                        )
+                        .controller(TickBoxControllerBuilder::create)
+                        .build()
+                )
                 .option(Option.<Float>createBuilder()
                         .name(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.widthMult"))
                         .binding(

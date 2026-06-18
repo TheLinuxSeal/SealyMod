@@ -4,6 +4,8 @@ import dev.isxander.yacl3.config.v2.api.SerialEntry;
 
 public class RenderConfig {
     @SerialEntry
+    public boolean fireBillboardEnable = false;
+    @SerialEntry
     public float fireBillboardExponentialXMult = 0.9F;
     @SerialEntry
     public float fireBillboardExponentialYMult = 0.9F;
