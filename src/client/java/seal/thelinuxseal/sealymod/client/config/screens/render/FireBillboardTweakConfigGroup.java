@@ -1,6 +1,7 @@
 package seal.thelinuxseal.sealymod.client.config.screens.render;
 
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
+import net.minecraft.network.chat.Component;
 import seal.thelinuxseal.sealymod.client.config.data.SealyModConfig;
 import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
 import dev.isxander.yacl3.api.Option;
@@ -9,9 +10,74 @@ import dev.isxander.yacl3.api.OptionGroup;
 import dev.isxander.yacl3.api.controller.FloatFieldControllerBuilder;
 import net.minecraft.client.gui.screens.Screen;
 
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 public class FireBillboardTweakConfigGroup {
+    private static Option<Float> widthMultOpt;
+    private static Option<Float> heightMultOpt;
+    private static Option<Float> widthStartOpt;
+    private static Option<Float> heightStartOpt;
+
+    public static void setAvailable(boolean val){
+        widthMultOpt.setAvailable(val);
+        heightMultOpt.setAvailable(val);
+        widthStartOpt.setAvailable(val);
+        heightStartOpt.setAvailable(val);
+    }
+
+    public static Option<Float> makeFloatField(Component name, Supplier<Float> sup, Consumer<Float> con, float def, float min, float max){
+        return Option.<Float>createBuilder()
+                .name(name)
+                .binding(
+                        def,
+                        sup,
+                        con
+                )
+                .controller(opt -> FloatFieldControllerBuilder.create(opt)
+                        .range(min, max))
+                .build();
+
+    }
     // Changed name to 'get' and added 'static' for clean access
     public static OptionGroup get(Screen parent, SealyModConfig config) {
+         widthMultOpt = makeFloatField(
+                SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.widthMult"),
+                () -> config.render.fireBillboardExponentialXMult,
+                val -> config.render.fireBillboardExponentialXMult = val,
+                0.9F,
+                0.00F,
+                1.20F
+        );
+
+
+        heightMultOpt = makeFloatField(
+                SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.heightMult"),
+                () -> config.render.fireBillboardExponentialYMult,
+                val -> config.render.fireBillboardExponentialYMult = val,
+                0.9F,
+                0.00F,
+                1.20F
+        );
+
+        widthStartOpt = makeFloatField(
+                SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.widthStart"),
+                () -> config.render.fireBillboardExponentialXStart,
+                val -> config.render.fireBillboardExponentialXStart = val,
+                0.8F,
+                0.00F,
+                5.00F
+        );
+        heightStartOpt = makeFloatField(
+                SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.heightStart"),
+                () -> config.render.fireBillboardExponentialYStart,
+                val -> config.render.fireBillboardExponentialYStart = val,
+                0.8F,
+                0.00F,
+                5.00F
+        );
+        setAvailable(config.render.fireBillboardEnable);
+
         return OptionGroup.createBuilder()
                 .name(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.title"))
                 .description(OptionDescription.of(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.desc")))
@@ -20,55 +86,16 @@ public class FireBillboardTweakConfigGroup {
                         .binding(
                                 false,
                                 () -> config.render.fireBillboardEnable,
-                                val -> config.render.fireBillboardEnable = val
+                                val -> {config.render.fireBillboardEnable = val;
+                                                setAvailable(val);}
                         )
                         .controller(TickBoxControllerBuilder::create)
                         .build()
                 )
-                .option(Option.<Float>createBuilder()
-                        .name(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.widthMult"))
-                        .binding(
-                                0.9F,
-                                () -> config.render.fireBillboardExponentialXMult,
-                                val -> config.render.fireBillboardExponentialXMult = val
-                        )
-                        .controller(opt -> FloatFieldControllerBuilder.create(opt)
-                                .range(0.00F, 1.20F))
-                        .build()
-                )
-                .option(Option.<Float>createBuilder()
-                        .name(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.heightMult"))
-                        .binding(
-                                0.9F,
-                                () -> config.render.fireBillboardExponentialYMult,
-                                val -> config.render.fireBillboardExponentialYMult = val
-                        )
-                        .controller(opt -> FloatFieldControllerBuilder.create(opt)
-                                .range(0.00F, 1.20F))
-                        .build()
-                )
-                .option(Option.<Float>createBuilder()
-                        .name(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.widthStart"))
-                        .binding(
-                                0.8F,
-                                () -> config.render.fireBillboardExponentialXStart,
-                                val -> config.render.fireBillboardExponentialXStart = val
-                        )
-                        .controller(opt -> FloatFieldControllerBuilder.create(opt)
-                                .range(0.00F, 5.00F))
-                        .build()
-                )
-                .option(Option.<Float>createBuilder()
-                        .name(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.heightStart"))
-                        .binding(
-                                0.8F,
-                                () -> config.render.fireBillboardExponentialYStart,
-                                val -> config.render.fireBillboardExponentialYStart = val
-                        )
-                        .controller(opt -> FloatFieldControllerBuilder.create(opt)
-                                .range(0.00F, 5.00F))
-                        .build()
-                )
+                .option(widthMultOpt)
+                .option(heightMultOpt)
+                .option(widthStartOpt)
+                .option(heightStartOpt)
                 .build(); // Builds the OptionGroup
     }
 }
