@@ -3,7 +3,9 @@ package seal.thelinuxseal.sealymod.client.sealyhud.editor;
 import com.google.gson.JsonObject;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
+import org.jetbrains.annotations.ApiStatus;
 
+@ApiStatus.Experimental
 public class SealyHUDEditorHelpScreen {
     private SealyHUDEditor parent;
     private JsonObject data;

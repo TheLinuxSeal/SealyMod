@@ -8,12 +8,12 @@ import net.minecraft.client.gui.screens.Screen;
 
 public class RenderConfigScreen {
     // Changed name to 'get' and added 'static' for clean access
-    public static ConfigCategory get(Screen parent, SealyModConfig config) {
+    public static ConfigCategory create(Screen parent, SealyModConfig config) {
         return ConfigCategory.createBuilder()
                 .name(SealyModLang.getAsComponent("sealymod.config.render.title"))
 
                 // Create a grouped sub-category
-                .group(FireBillboardTweakConfigGroup.get(parent, config))
+                .group(FireBillboardTweakConfigGroup.create(parent, config))
                 .build(); // Builds the Misc Category
     }
 }

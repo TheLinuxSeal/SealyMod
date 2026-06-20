@@ -6,17 +6,15 @@ import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
 import dev.isxander.yacl3.api.*;
 import net.minecraft.client.gui.screens.Screen;
 
-
-
 public class MainConfigScreen {
 
     public static Screen create(Screen parent, SealyModConfig config) {
         return YetAnotherConfigLib.createBuilder()
                 .title(SealyModLang.getAsComponent("sealymod.config.title"))
                 .save(SealyModConfigHandler::save)
-                .category(GeneralConfigScreen.get(parent, config))
-                .category(RenderConfigScreen.get(parent, config))
-                .category(SealyHUDConfigScreen.get(parent,config))
+                .category(SealyHUDConfigScreen.create(parent,config))
+                .category(CommandsConfigScreen.create(parent,config))
+                .category(RenderConfigScreen.create(parent, config))
                 .build()
                 .generateScreen(parent);
     }

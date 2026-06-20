@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 
 public class SealyHUDConfigScreen {
-    public static ConfigCategory get(Screen parent, SealyModConfig config) {
+    public static ConfigCategory create(Screen parent, SealyModConfig config) {
         return ConfigCategory.createBuilder()
                 .name(SealyModLang.getAsComponent("sealymod.config.sealyhud.title"))
                 .option(Option.<Boolean>createBuilder()

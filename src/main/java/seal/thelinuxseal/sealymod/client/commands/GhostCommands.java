@@ -113,14 +113,14 @@ public class GhostCommands {
 
         // Safely extract and floor the "from" coordinates
         Coordinates coords1 =
-                context.getArgument("pos", Coordinates.class);
+                context.getArgument("from", Coordinates.class);
 
         BlockPos from =
                 coords1.getBlockPos(makeFakeStack(client));
 
         // Safely extract and floor the "to" coordinates
         Coordinates coords2 =
-                context.getArgument("pos", Coordinates.class);
+                context.getArgument("to", Coordinates.class);
 
         BlockPos to =
                 coords2.getBlockPos(makeFakeStack(client));

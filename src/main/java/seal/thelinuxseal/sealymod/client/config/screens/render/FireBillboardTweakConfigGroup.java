@@ -39,8 +39,8 @@ public class FireBillboardTweakConfigGroup {
                 .build();
 
     }
-    // Changed name to 'get' and added 'static' for clean access
-    public static OptionGroup get(Screen parent, SealyModConfig config) {
+
+    public static OptionGroup create(Screen parent, SealyModConfig config) {
          widthMultOpt = makeFloatField(
                 SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.widthMult"),
                 () -> config.render.fireBillboardExponentialXMult,
