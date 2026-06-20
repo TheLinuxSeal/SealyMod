@@ -1,9 +1,10 @@
 # SealyMod
 
-## Setup
+This is a mod adding a few useful features, such as a HUD. 
 
-For setup instructions, please see the [Fabric Documentation page](https://docs.fabricmc.net/develop/getting-started/creating-a-project#setting-up) related to the IDE that you are using.
+Features so far:
+1. HUD
+2. Client side commands for creating ghost blocks, items, and entities.
+3. Fire renderer tweak, making the pixels actually square.
 
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+All features are disabled by default.
