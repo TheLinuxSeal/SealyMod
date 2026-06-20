@@ -30,5 +30,7 @@
   "sealymod.config.render.fireRenderer.widthMult": "Exponential Width Multiplier",
   "sealymod.config.render.fireRenderer.heightMult": "Exponential Height Multiplier",
   "sealymod.config.render.fireRenderer.widthStart": "Initial Width Scale",
-  "sealymod.config.render.fireRenderer.heightStart": "Initial Height Scale"
+  "sealymod.config.render.fireRenderer.heightStart": "Initial Height Scale",
+  "sealymod.commands.sealymod.feedback.availableCommands": "Available Commands:",
+  "sealymod.commands.sealymod.feedback.disabledSuffix": "[disabled]"
 }

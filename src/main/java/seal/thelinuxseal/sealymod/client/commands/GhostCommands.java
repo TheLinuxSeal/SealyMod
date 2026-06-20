@@ -7,6 +7,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
@@ -41,9 +42,9 @@ public class GhostCommands {
         SealyModConfig config = SealyModConfigHandler.get();
 
         LiteralArgumentBuilder<FabricClientCommandSource> ghostCommands = ClientCommands.literal("ghost");
-        
+
         if (config.commands.enableGhostSetBlock){
-            ghostCommands = ghostCommands.then(
+            ghostCommands.then(
                     ClientCommands.literal("setblock")
                     .then(ClientCommands.argument("pos", BlockPosArgument.blockPos())
                             .then(ClientCommands.argument(
@@ -56,7 +57,7 @@ public class GhostCommands {
         }
 
         if (config.commands.enableGhostFill) {
-            ghostCommands = ghostCommands.then(
+            ghostCommands.then(
                     ClientCommands.literal("fill")
                             .then(ClientCommands.argument("from", Vec3Argument.vec3(false))
                                     .then(ClientCommands.argument("to", Vec3Argument.vec3(false))
@@ -71,7 +72,7 @@ public class GhostCommands {
         }
 
         if (config.commands.enableGhostGive) {
-            ghostCommands = ghostCommands.then(
+            ghostCommands.then(
                     ClientCommands.literal("give")
                             .then(ClientCommands.argument("item", ItemArgument.item(registryAccess))
                                     .then(ClientCommands.argument("amount", IntegerArgumentType.integer())
@@ -80,7 +81,7 @@ public class GhostCommands {
         }
 
         if (config.commands.enableGhostSummon) {
-            ghostCommands = ghostCommands.then(
+            ghostCommands.then(
                     ClientCommands.literal("summon")
                             .then(ClientCommands.argument("entity", ResourceArgument.resource(registryAccess, Registries.ENTITY_TYPE))
                                     .suggests(SuggestionProviders.cast(SuggestionProviders.SUMMONABLE_ENTITIES))
@@ -91,17 +92,17 @@ public class GhostCommands {
         return ghostCommands;
     }
 
-    private static CommandSourceStack makeFakeStack(Minecraft client){
+    private static CommandSourceStack makeFakeStack(LocalPlayer player){
         return new CommandSourceStack(
                 CommandSource.NULL,                        // Base source
-                client.player.position(),                   // Vec3 Position
-                client.player.getRotationVector(),          // Vec2 Rotation (Pitch/Yaw)
+                player.position(),                   // Vec3 Position
+                player.getRotationVector(),          // Vec2 Rotation (Pitch/Yaw)
                 null,                                       // ServerLevel (Pass null safely on client)
                 PermissionSet.NO_PERMISSIONS,                                          // Permission level
-                client.player.getName().getString(),        // Text Name
-                client.player.getDisplayName(),             // Component DisplayName
+                player.getName().getString(),        // Text Name
+                player.getDisplayName(),             // Component DisplayName
                 null,                                       // MinecraftServer (Leave null)
-                client.player                               // Entity context anchor
+                player                               // Entity context anchor
         );
 
     }
@@ -115,7 +116,7 @@ public class GhostCommands {
                 context.getArgument("pos", Coordinates.class);
 
         BlockPos pos =
-                coords.getBlockPos(makeFakeStack(client));
+                coords.getBlockPos(makeFakeStack(client.player));
 
         BlockInput input = context.getArgument("block", BlockInput.class);
 
@@ -138,14 +139,14 @@ public class GhostCommands {
                 context.getArgument("from", Coordinates.class);
 
         BlockPos from =
-                coords1.getBlockPos(makeFakeStack(client));
+                coords1.getBlockPos(makeFakeStack(client.player));
 
         // Safely extract and floor the "to" coordinates
         Coordinates coords2 =
                 context.getArgument("to", Coordinates.class);
 
         BlockPos to =
-                coords2.getBlockPos(makeFakeStack(client));
+                coords2.getBlockPos(makeFakeStack(client.player));
 
         BlockInput input = context.getArgument("block", BlockInput.class);
 
