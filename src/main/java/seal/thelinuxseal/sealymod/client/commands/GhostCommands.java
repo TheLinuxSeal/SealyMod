@@ -28,6 +28,8 @@ import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+import seal.thelinuxseal.sealymod.client.config.SealyModConfigHandler;
+import seal.thelinuxseal.sealymod.client.config.data.SealyModConfig;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -36,37 +38,57 @@ public class GhostCommands {
 
     public static LiteralArgumentBuilder<FabricClientCommandSource> build(CommandBuildContext registryAccess) {
 
-        // Changed argument type to Vec3Argument.vec3(false) to handle ^ ^ ^ safely
-        LiteralArgumentBuilder<FabricClientCommandSource> setBlock = ClientCommands.literal("setblock")
-                .then(ClientCommands.argument("pos", BlockPosArgument.blockPos())
-                        .then(ClientCommands.argument(
-                                        "block",
-                                        BlockStateArgument.block(registryAccess))
-                                .executes(GhostCommands::ghostSetBlock)
-                        )
-                );
+        SealyModConfig config = SealyModConfigHandler.get();
 
-        // Changed both "from" and "to" argument types to Vec3Argument.vec3(false)
-        LiteralArgumentBuilder<FabricClientCommandSource> fill = ClientCommands.literal("fill")
-                .then(ClientCommands.argument("from", Vec3Argument.vec3(false))
-                        .then(ClientCommands.argument("to", Vec3Argument.vec3(false))
-                                .then(ClientCommands.argument(
-                                                "block",
-                                                BlockStateArgument.block(registryAccess))
-                                        .executes(GhostCommands::ghostFill)
-                                )));
+        LiteralArgumentBuilder<FabricClientCommandSource> ghostCommands = ClientCommands.literal("ghost");
+        
+        if (config.commands.enableGhostSetBlock){
+            ghostCommands = ghostCommands.then(
+                    ClientCommands.literal("setblock")
+                    .then(ClientCommands.argument("pos", BlockPosArgument.blockPos())
+                            .then(ClientCommands.argument(
+                                            "block",
+                                            BlockStateArgument.block(registryAccess))
+                                    .executes(GhostCommands::ghostSetBlock)
+                            )
+                    )
+            );
+        }
 
-        LiteralArgumentBuilder<FabricClientCommandSource> give = ClientCommands.literal("give")
-                .then(ClientCommands.argument("item", ItemArgument.item(registryAccess))
-                        .then(ClientCommands.argument("amount", IntegerArgumentType.integer())
-                                .executes(GhostCommands::ghostGive)));
+        if (config.commands.enableGhostFill) {
+            ghostCommands = ghostCommands.then(
+                    ClientCommands.literal("fill")
+                            .then(ClientCommands.argument("from", Vec3Argument.vec3(false))
+                                    .then(ClientCommands.argument("to", Vec3Argument.vec3(false))
+                                            .then(ClientCommands.argument(
+                                                            "block",
+                                                            BlockStateArgument.block(registryAccess))
+                                                    .executes(GhostCommands::ghostFill)
+                                            )
+                                    )
+                            )
+            );
+        }
 
-        LiteralArgumentBuilder<FabricClientCommandSource> summon = ClientCommands.literal("summon")
-                .then(ClientCommands.argument("entity", ResourceArgument.resource(registryAccess, Registries.ENTITY_TYPE))
-                        .suggests(SuggestionProviders.cast(SuggestionProviders.SUMMONABLE_ENTITIES))
-                        .executes(GhostCommands::ghostSummon));
+        if (config.commands.enableGhostGive) {
+            ghostCommands = ghostCommands.then(
+                    ClientCommands.literal("give")
+                            .then(ClientCommands.argument("item", ItemArgument.item(registryAccess))
+                                    .then(ClientCommands.argument("amount", IntegerArgumentType.integer())
+                                            .executes(GhostCommands::ghostGive)))
+            );
+        }
 
-        return ClientCommands.literal("ghost").then(setBlock).then(fill).then(give).then(summon);
+        if (config.commands.enableGhostSummon) {
+            ghostCommands = ghostCommands.then(
+                    ClientCommands.literal("summon")
+                            .then(ClientCommands.argument("entity", ResourceArgument.resource(registryAccess, Registries.ENTITY_TYPE))
+                                    .suggests(SuggestionProviders.cast(SuggestionProviders.SUMMONABLE_ENTITIES))
+                                    .executes(GhostCommands::ghostSummon))
+            );
+        }
+
+        return ghostCommands;
     }
 
     private static CommandSourceStack makeFakeStack(Minecraft client){
