@@ -15,9 +15,6 @@
 	"icon": "assets/sealymod/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"main": [
-			"seal.thelinuxseal.sealymod.SealyMod"
-		],
 		"client": [
 			"seal.thelinuxseal.sealymod.client.SealyModClient"
 		],
@@ -26,7 +23,6 @@
 		]
 	},
 	"mixins": [
-		"sealymod.mixins.json",
 		{
 			"config": "sealymod.client.mixins.json",
 			"environment": "client"
