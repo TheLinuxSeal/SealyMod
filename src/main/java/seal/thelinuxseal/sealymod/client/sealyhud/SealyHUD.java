@@ -1,5 +1,6 @@
 package seal.thelinuxseal.sealymod.client.sealyhud;
 
+import seal.thelinuxseal.sealymod.client.SealyModClient;
 import seal.thelinuxseal.sealymod.client.config.SealyModConfigHandler;
 import seal.thelinuxseal.sealymod.client.sealyhud.element.SealyHUDElement;
 import seal.thelinuxseal.sealymod.client.sealyhud.element.SealyHUDElementManager;
@@ -9,14 +10,12 @@ import net.minecraft.resources.Identifier;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 
-import seal.thelinuxseal.sealymod.SealyMod;
-
 public class SealyHUD {
 
     public void init() {
         SealyHUDTextParser.init();
         SealyHUDElementManager.loadFromConfig(SealyModConfigHandler.get().sealyHUD.hudWidgets);
-        HudElementRegistry.addLast(Identifier.fromNamespaceAndPath(SealyMod.MOD_ID, "last_element"), this.hudLayer());
+        HudElementRegistry.addLast(Identifier.fromNamespaceAndPath(SealyModClient.MOD_ID, "last_element"), this.hudLayer());
     }
 
     private HudElement hudLayer() {
