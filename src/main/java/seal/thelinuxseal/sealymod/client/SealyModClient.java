@@ -2,7 +2,6 @@ package seal.thelinuxseal.sealymod.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import seal.thelinuxseal.sealymod.client.commands.CommandInitializer;
 import seal.thelinuxseal.sealymod.client.config.SealyModConfigHandler;
 import seal.thelinuxseal.sealymod.client.resources.SealyModResourceReloadListenerInitializer;
 import seal.thelinuxseal.sealymod.client.sealyhud.SealyHUD;
@@ -22,7 +21,6 @@ public class SealyModClient implements ClientModInitializer {
 
 		SealyModConfigHandler.load();
 		SealyModResourceReloadListenerInitializer.init();
-		CommandInitializer.init();
 		sealhud = new SealyHUD();
 		sealhud.init();
 

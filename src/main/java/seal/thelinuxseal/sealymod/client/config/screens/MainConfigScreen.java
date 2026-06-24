@@ -13,7 +13,6 @@ public class MainConfigScreen {
                 .title(SealyModLang.getAsComponent("sealymod.config.title"))
                 .save(SealyModConfigHandler::save)
                 .category(SealyHUDConfigScreen.create(parent,config))
-                .category(CommandsConfigScreen.create(parent,config))
                 .category(RenderConfigScreen.create(parent, config))
                 .build()
                 .generateScreen(parent);

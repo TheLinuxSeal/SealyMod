@@ -16,13 +16,12 @@
   "sealymod.sealyhud.editor.addWidgetButton": "Add Widget",
   "sealymod.sealyhud.editor.save": "Save",
   "sealymod.sealyhud.editor.exit": "Exit",
-  "sealymod.config.commands.title": "Commands",
-  "sealymod.config.commands.ghost.title": "Ghost Commands",
-  "sealymod.config.commands.ghost.desc": "Commands to modify the world state, but only on the client side. Useful for testing desyncs between the client and server.",
-  "sealymod.config.commands.ghost.setBlock.enable": "Enable /sealymod ghost setblock",
-  "sealymod.config.commands.ghost.fill.enable": "Enable /sealymod ghost fill",
-  "sealymod.config.commands.ghost.give.enable": "Enable /sealymod ghost give",
-  "sealymod.config.commands.ghost.summon.enable": "Enable /sealymod ghost summon",
+  "sealymod.sealyhud.editor.help": "Help",
+  "sealymod.sealyhud.editor.help.error": "Error loading docs...",
+  "sealymod.sealyhud.editor.help.docs": [
+    "SealyHUD Documentation",
+    "Seals are the best"
+  ],
   "sealymod.config.render.title": "Rendering",
   "sealymod.config.render.fireRenderer.title": "Fire Billboard Renderer Tweak",
   "sealymod.config.render.fireRenderer.desc": "Fine-tune the scaling and tapering of fire effects on entities.",
@@ -30,7 +29,5 @@
   "sealymod.config.render.fireRenderer.widthMult": "Exponential Width Multiplier",
   "sealymod.config.render.fireRenderer.heightMult": "Exponential Height Multiplier",
   "sealymod.config.render.fireRenderer.widthStart": "Initial Width Scale",
-  "sealymod.config.render.fireRenderer.heightStart": "Initial Height Scale",
-  "sealymod.commands.sealymod.feedback.availableCommands": "Available Commands:",
-  "sealymod.commands.sealymod.feedback.disabledSuffix": "[disabled]"
+  "sealymod.config.render.fireRenderer.heightStart": "Initial Height Scale"
 }

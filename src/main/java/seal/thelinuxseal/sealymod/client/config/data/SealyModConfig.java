@@ -9,13 +9,10 @@ public class SealyModConfig {
     public SealyHUDConfig sealyHUD;
     @SerialEntry
     public RenderConfig render;
-    @SerialEntry
-    public CommandsConfig commands;
 
     public SealyModConfig(){
         sealyHUD = new SealyHUDConfig();
         render = new RenderConfig();
-        commands = new CommandsConfig();
 
     }
 

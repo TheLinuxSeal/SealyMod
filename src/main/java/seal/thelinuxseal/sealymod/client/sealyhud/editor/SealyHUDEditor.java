@@ -2,6 +2,7 @@
 
 package seal.thelinuxseal.sealymod.client.sealyhud.editor;
 
+import org.jspecify.annotations.NonNull;
 import seal.thelinuxseal.sealymod.client.config.data.SealyModConfig;
 import seal.thelinuxseal.sealymod.client.config.SealyModConfigHandler;
 import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
@@ -26,12 +27,18 @@ public class SealyHUDEditor extends Screen {
     private final int bottomClipY = 50;
     private ArrayList<SealyHUDElement> localWidgetData;
     private boolean saved = true;
-    private boolean helpScreen = false;
+    private boolean isHelpScreen = false;
+    private SealyHUDEditorHelpScreen helpScreen;
+    private Button addNewBtn;
+    private Button helpBtn;
+    private Button saveBtn;
+    private Button exitBtn;
 
     public SealyHUDEditor(Screen parent, SealyModConfig config) {
         super(SealyModLang.getAsComponent("sealymod.sealyhud.editor.title"));
         this.parent = parent;
         this.config = config;
+        this.helpScreen = new SealyHUDEditorHelpScreen(this);
     }
 
     private void reload() {
@@ -76,13 +83,20 @@ public class SealyHUDEditor extends Screen {
             this.UIEntries.add(new WidgetRowEntry(element, checkbox, xInput, yInput, textSizeInput, textInput, deleteBtn, initialY));
         }
 
-        this.addRenderableWidget(Button.builder(SealyModLang.getAsComponent("sealymod.sealyhud.editor.addWidgetButton"), (btn) -> {
+        this.addNewBtn = Button.builder(SealyModLang.getAsComponent("sealymod.sealyhud.editor.addWidgetButton"), (btn) -> {
             this.saveValToTarget();
             this.localWidgetData.add(new SealyHUDElement("", "", "0.5", "", false));
             this.reload();
-        }).bounds(20, this.height - 35, 100, 20).build());
-        this.addRenderableWidget(Button.builder(SealyModLang.getAsComponent("sealymod.sealyhud.editor.save"), (btn) -> this.applyAndSave()).bounds(this.width - 230, this.height - 35, 100, 20).build());
-        this.addRenderableWidget(Button.builder(SealyModLang.getAsComponent("sealymod.sealyhud.editor.exit"), (btn) -> this.minecraft.setScreenAndShow(this.parent)).bounds(this.width - 120, this.height - 35, 100, 20).build());
+        }).bounds(20, this.height - 35, 100, 20).build();
+        //this.helpBtn = Button.builder(SealyModLang.getAsComponent("sealymod.sealyhud.editor.help"), (btn) -> this.isHelpScreen = true).bounds(this.width - 340, this.height - 35, 100, 20).build();
+        this.saveBtn = Button.builder(SealyModLang.getAsComponent("sealymod.sealyhud.editor.exit"), (btn) -> this.minecraft.setScreenAndShow(this.parent)).bounds(this.width - 120, this.height - 35, 100, 20).build();
+        this.exitBtn = Button.builder(SealyModLang.getAsComponent("sealymod.sealyhud.editor.save"), (btn) -> this.applyAndSave()).bounds(this.width - 230, this.height - 35, 100, 20).build();
+
+        this.addRenderableWidget(this.addNewBtn);
+        //this.addRenderableWidget(this.helpBtn);
+        this.addRenderableWidget(this.saveBtn);
+        this.addRenderableWidget(this.exitBtn);
+
         this.updateWidgetPositions();
     }
 
@@ -103,6 +117,9 @@ public class SealyHUDEditor extends Screen {
         int maxScroll = Math.max(0, totalContentHeight - viewHeight + 20);
         this.scrollAmount = Mth.clamp(this.scrollAmount - scrollY * (double)15.0F, (double)0.0F, (double)maxScroll);
         this.updateWidgetPositions();
+        if (this.isHelpScreen) {
+
+        }
         return true;
     }
 
@@ -118,8 +135,8 @@ public class SealyHUDEditor extends Screen {
             entry.textSizeInput.setY(newY);
             entry.deleteBtn.setY(newY);
             entry.textInput.setY(newY + 22);
-            boolean editTop = newY > topClipY-20 && newY < bottomLimit && !this.helpScreen;
-            boolean editBottom = newY + 22 > topClipY-20 && newY + 22 < bottomLimit && !this.helpScreen;
+            boolean editTop = newY > topClipY-20 && newY < bottomLimit && !this.isHelpScreen;
+            boolean editBottom = newY + 22 > topClipY-20 && newY + 22 < bottomLimit && !this.isHelpScreen;
             entry.xInput.setEditable(editTop);
             entry.yInput.setEditable(editTop);
             entry.textSizeInput.setEditable(editTop);
@@ -146,6 +163,7 @@ public class SealyHUDEditor extends Screen {
             }
         }
 
+
     }
 
     private void saveValToTarget() {
@@ -171,20 +189,24 @@ public class SealyHUDEditor extends Screen {
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
+    public void extractRenderState(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
         super.extractRenderState(graphics, mouseX, mouseY, delta);
         //graphics.fill(0, 0, this.width, 40, -15592942);
-        graphics.text(this.font, SealyModLang.getAsComponent("sealymod.sealyhud.editor.title"), 20, 15, 16777215, true);
-        graphics.enableScissor(20,topClipY,this.width-20,this.height - bottomClipY);
-        for (WidgetRowEntry entry : this.UIEntries) {
-            entry.checkbox.extractRenderState(graphics,mouseX,mouseY,delta);
-            entry.xInput.extractWidgetRenderState(graphics,mouseX,mouseY,delta);
-            entry.yInput.extractWidgetRenderState(graphics,mouseX,mouseY,delta);
-            entry.textSizeInput.extractWidgetRenderState(graphics,mouseX,mouseY,delta);
-            entry.textInput.extractWidgetRenderState(graphics,mouseX,mouseY,delta);
-            entry.deleteBtn.extractRenderState(graphics,mouseX,mouseY,delta);
+        if (!isHelpScreen) {
+            graphics.centeredText(this.font, SealyModLang.getAsComponent("sealymod.sealyhud.editor.title"), this.width/2, 5, 0xFFFFFFFF);
+            graphics.enableScissor(20, topClipY, this.width - 20, this.height - bottomClipY);
+            for (WidgetRowEntry entry : this.UIEntries) {
+                entry.checkbox.extractRenderState(graphics, mouseX, mouseY, delta);
+                entry.xInput.extractWidgetRenderState(graphics, mouseX, mouseY, delta);
+                entry.yInput.extractWidgetRenderState(graphics, mouseX, mouseY, delta);
+                entry.textSizeInput.extractWidgetRenderState(graphics, mouseX, mouseY, delta);
+                entry.textInput.extractWidgetRenderState(graphics, mouseX, mouseY, delta);
+                entry.deleteBtn.extractRenderState(graphics, mouseX, mouseY, delta);
+            }
+            graphics.disableScissor();
+        } else {
+            this.helpScreen.render(graphics, mouseX, mouseY, delta);
         }
-        graphics.disableScissor();
         //graphics.fill(0, this.height - 50 + 15, this.width, this.height, -15592942);
     }
     private record WidgetRowEntry(SealyHUDElement targetElement, Checkbox checkbox, EditBox xInput, EditBox yInput, EditBox textSizeInput, EditBox textInput, Button deleteBtn, int baseY) {}
