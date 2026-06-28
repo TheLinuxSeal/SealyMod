@@ -1,7 +1,7 @@
 package seal.thelinuxseal.sealymod.client.resources;
 
 import net.fabricmc.fabric.api.resource.v1.reloader.SimpleReloadListener;
-import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
+import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLangManager;
 
 public class SealyModResourceReloadListener extends SimpleReloadListener<SealyModResourceReloadListener.PreparedData> {
 
@@ -13,7 +13,7 @@ public class SealyModResourceReloadListener extends SimpleReloadListener<SealyMo
 
     @Override
     protected void apply(PreparedData prepared, SharedState state) {
-        SealyModLang.reload();
+        SealyModLangManager.reload();
 
     }
 

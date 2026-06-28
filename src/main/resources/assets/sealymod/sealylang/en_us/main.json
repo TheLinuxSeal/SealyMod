@@ -18,10 +18,6 @@
   "sealymod.sealyhud.editor.exit": "Exit",
   "sealymod.sealyhud.editor.help": "Help",
   "sealymod.sealyhud.editor.help.error": "Error loading docs...",
-  "sealymod.sealyhud.editor.help.docs": [
-    "SealyHUD Documentation",
-    "Seals are the best"
-  ],
   "sealymod.config.render.title": "Rendering",
   "sealymod.config.render.fireRenderer.title": "Fire Billboard Renderer Tweak",
   "sealymod.config.render.fireRenderer.desc": "Fine-tune the scaling and tapering of fire effects on entities.",

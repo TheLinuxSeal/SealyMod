@@ -1,31 +1,31 @@
 package seal.thelinuxseal.sealymod.client.resources.lang;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 
-
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-
 
 public final class SealyModLang {
-    public static Minecraft client = Minecraft.getInstance();
-    public static Identifier path;
-    public static List<Resource> langFiles;
-    public static ArrayList<JsonObject> unmergedLangData;
-    public static JsonObject langData;
+    private final Minecraft client = Minecraft.getInstance();
+    private JsonObject langData;
+    private String subPath;
+
+    public SealyModLang(String subPath){
+        this.subPath = subPath;
+
+    }
 
 
-    public static String get(String key) {
+    public String get(String key) {
         if (langData==null){return key;}
         if (langData.has(key)) {
             return langData.get(key).getAsString();
@@ -34,11 +34,11 @@ public final class SealyModLang {
         }
     }
 
-    public static Component getAsComponent(String key){
+    public Component getAsComponent(String key){
         return Component.literal(get(key));
     }
 
-    public static JsonElement getAsJsonObj(String key) {
+    public JsonElement getAsJsonObj(String key) {
         // If data isn't loaded or missing the key, wrap the fallback key into a JsonPrimitive
         if (langData == null || !langData.has(key)) {
             return new JsonPrimitive(key);
@@ -48,13 +48,17 @@ public final class SealyModLang {
         return langData.get(key);
     }
 
-    public static void reload() {
+    public JsonObject getAll(){
+        return langData;
+    }
+
+    public void reload() {
         String lang = Minecraft.getInstance().getLanguageManager().getSelected();
-        path = Identifier.fromNamespaceAndPath("sealymod", "sealylang/"+lang+".json");
+        Identifier path = Identifier.fromNamespaceAndPath("sealymod", "sealylang/" + lang + "/" + subPath);
 
-        langFiles = client.getResourceManager().getResourceStack(path);
+        List<Resource> langFiles = client.getResourceManager().getResourceStack(path);
 
-        unmergedLangData = new ArrayList<>();
+        ArrayList<JsonObject> unmergedLangData = new ArrayList<>();
 
         for (Resource resource : langFiles) {
             try (var stream = resource.open()) {
@@ -77,7 +81,7 @@ public final class SealyModLang {
         langData = mergeJson(unmergedLangData);
     }
 
-    public static JsonObject mergeJson(ArrayList<JsonObject> json) {
+    private static JsonObject mergeJson(ArrayList<JsonObject> json) {
         JsonObject result = new JsonObject();
 
         for (JsonObject pack : json) {
@@ -89,3 +93,6 @@ public final class SealyModLang {
         return result;
     }
 }
+
+
+

@@ -7,9 +7,9 @@ public final class ClientCameraContext {
     public double exactX(){return Minecraft.getInstance().gameRenderer.mainCamera().position().x;}
     public double exactY(){return Minecraft.getInstance().gameRenderer.mainCamera().position().y;}
     public double exactZ(){return Minecraft.getInstance().gameRenderer.mainCamera().position().z;}
-    public String x(){return String.format("%.2f", exactX());}
-    public String y(){return String.format("%.2f", exactY());}
-    public String z(){return String.format("%.2f", exactZ());}
+    public double x() { return Math.round(exactX() * 100.0) / 100.0; }
+    public double y() { return Math.round(exactY() * 100.0) / 100.0; }
+    public double z() { return Math.round(exactZ() * 100.0) / 100.0; }
     public int blockX(){return Minecraft.getInstance().gameRenderer.mainCamera().blockPosition().getX();}
     public int blockY(){return Minecraft.getInstance().gameRenderer.mainCamera().blockPosition().getY();}
     public int blockZ(){return Minecraft.getInstance().gameRenderer.mainCamera().blockPosition().getZ();}

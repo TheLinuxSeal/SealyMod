@@ -1,9 +1,8 @@
 package seal.thelinuxseal.sealymod.client.sealyhud.element;
 
+import seal.thelinuxseal.sealymod.client.sealyhud.parser.SealyHUDExprParser;
 import seal.thelinuxseal.sealymod.client.sealyhud.parser.SealyHUDTextParser;
-import net.minecraft.client.Minecraft;
 import net.objecthunter.exp4j.Expression;
-import net.objecthunter.exp4j.ExpressionBuilder;
 import org.apache.commons.jexl3.JxltEngine;
 
 
@@ -31,75 +30,27 @@ public class SealyHUDElement {
     }
 
     public void compile() {
-
-
-        try {
-            this.xExpr = new ExpressionBuilder(xFormula)
-                    .variables("screenwidth", "screenheight")
-                    .build();
-        } catch (Exception e) {
-            this.xExpr = new ExpressionBuilder("0").build();
-        }
-        try {
-            this.yExpr = new ExpressionBuilder(yFormula)
-                    .variables("screenwidth", "screenheight")
-                    .build();
-        } catch (Exception e) {
-            this.yExpr = new ExpressionBuilder("0").build();
-        }
-        try {
-            this.textSizeExpr = new ExpressionBuilder(textSizeFormula)
-                    .variables("screenwidth", "screenheight")
-                    .build();
-        } catch (Exception e) {
-            this.textSizeExpr = new ExpressionBuilder("0").build();
-        }
+        this.xExpr = SealyHUDExprParser.build(xFormula,"0");
+        this.yExpr = SealyHUDExprParser.build(yFormula,"0");
+        this.textSizeExpr = SealyHUDExprParser.build(textSizeFormula,"0.75");
         this.jexlTextExpr = SealyHUDTextParser.createExpr(this.textTemplate);
     }
 
     public int getX() {
-        Minecraft client = Minecraft.getInstance();
         if (xExpr == null) return 0;
 
-        try {
-            return (int) xExpr
-                    .setVariable("screenwidth", client.getWindow().getGuiScaledWidth())
-                    .setVariable("screenheight", client.getWindow().getGuiScaledHeight())
-                    .evaluate();
-        } catch (Exception e) {
-            System.out.println("Error at SealyHUDElement$getX");
-            System.out.println(e.toString());
-            return 0; // Fail-safe fallback if math evaluation goes wild
-        }
+        return (int) SealyHUDExprParser.eval(xExpr,0);
     }
 
     public int getY() {
-        Minecraft client = Minecraft.getInstance();
         if (yExpr == null) return 0;
 
-        try {
-            return (int) yExpr
-                    .setVariable("screenwidth", client.getWindow().getGuiScaledWidth())
-                    .setVariable("screenheight", client.getWindow().getGuiScaledHeight())
-                    .evaluate();
-        } catch (Exception e) {
-            System.out.println("Error at SealyHUDElement$getY");
-            System.out.println(e.toString());
-            return 0;
-        }
+        return (int) SealyHUDExprParser.eval(yExpr,0);
     }
     public float getTextSize() {
-        Minecraft client = Minecraft.getInstance();
-        if (textSizeExpr == null) return 0.5F;
+        if (textSizeExpr == null) return 0.75F;
 
-        try {
-            return (float) textSizeExpr
-                    .setVariable("screenwidth", client.getWindow().getGuiScaledWidth())
-                    .setVariable("screenheight", client.getWindow().getGuiScaledHeight())
-                    .evaluate();
-        } catch (Exception e) {
-            return 0.5F;
-        }
+        return (float) SealyHUDExprParser.eval(textSizeExpr,0.75F);
     }
 
     public String getText() {

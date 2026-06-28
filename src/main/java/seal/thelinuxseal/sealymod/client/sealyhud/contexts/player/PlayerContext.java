@@ -9,7 +9,8 @@ public final class PlayerContext {
         return client.gameMode != null ? client.gameMode.getPlayerMode().getName() : "...";
     }
     public String uuid(){
-        return Minecraft.getInstance().player.getUUID().toString();
+        Minecraft client = Minecraft.getInstance();
+        return client.player != null ? client.player.getUUID().toString() : "...";
     }
 
 }

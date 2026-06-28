@@ -7,9 +7,9 @@ public final class PlayerPosContext {
     public double exactX(){return Minecraft.getInstance().player.getX();}
     public double exactY(){return Minecraft.getInstance().player.getY();}
     public double exactZ(){return Minecraft.getInstance().player.getZ();}
-    public String x(){return String.format("%.2f", exactX());}
-    public String y(){return String.format("%.2f", exactY());}
-    public String z(){return String.format("%.2f", exactZ());}
+    public double x() { return Math.round(exactX() * 100.0) / 100.0; }
+    public double y() { return Math.round(exactY() * 100.0) / 100.0; }
+    public double z() { return Math.round(exactZ() * 100.0) / 100.0; }
     public int blockX(){return Minecraft.getInstance().player.getBlockX();}
     public int blockY(){return Minecraft.getInstance().player.getBlockY();}
     public int blockZ(){return Minecraft.getInstance().player.getBlockZ();}

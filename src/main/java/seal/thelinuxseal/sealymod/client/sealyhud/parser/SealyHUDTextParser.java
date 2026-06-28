@@ -32,11 +32,11 @@ public final class SealyHUDTextParser {
             .create();
     private static final JxltEngine jxlt = jexl.createJxltEngine();
 
-    public static ClientContext clientContext = new ClientContext();
-    public static PlayerContext playerContext = new PlayerContext();
-    public static SystemContext systemContext = new SystemContext();
-    public static UtilContext utilContext = new UtilContext();
-    public static WorldContext worldContext = new WorldContext();
+    private static final ClientContext clientContext = new ClientContext();
+    private static final PlayerContext playerContext = new PlayerContext();
+    private static final SystemContext systemContext = new SystemContext();
+    private static final UtilContext utilContext = new UtilContext();
+    private static final WorldContext worldContext = new WorldContext();
     private static final JexlContext context = new MapContext();
 
     public static void init(){

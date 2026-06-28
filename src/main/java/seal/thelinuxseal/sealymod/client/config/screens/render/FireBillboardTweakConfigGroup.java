@@ -3,7 +3,7 @@ package seal.thelinuxseal.sealymod.client.config.screens.render;
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import net.minecraft.network.chat.Component;
 import seal.thelinuxseal.sealymod.client.config.data.SealyModConfig;
-import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLang;
+import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLangManager;
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionDescription;
 import dev.isxander.yacl3.api.OptionGroup;
@@ -19,14 +19,14 @@ public class FireBillboardTweakConfigGroup {
     private static Option<Float> widthStartOpt;
     private static Option<Float> heightStartOpt;
 
-    public static void setAvailable(boolean val){
+    private static void setAvailable(boolean val){
         widthMultOpt.setAvailable(val);
         heightMultOpt.setAvailable(val);
         widthStartOpt.setAvailable(val);
         heightStartOpt.setAvailable(val);
     }
 
-    public static Option<Float> makeFloatField(Component name, Supplier<Float> sup, Consumer<Float> con, float def, float min, float max){
+    private static Option<Float> makeFloatField(Component name, Supplier<Float> sup, Consumer<Float> con, float def, float min, float max){
         return Option.<Float>createBuilder()
                 .name(name)
                 .binding(
@@ -42,7 +42,7 @@ public class FireBillboardTweakConfigGroup {
 
     public static OptionGroup create(Screen parent, SealyModConfig config) {
          widthMultOpt = makeFloatField(
-                SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.widthMult"),
+                SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.widthMult"),
                 () -> config.render.fireBillboardExponentialXMult,
                 val -> config.render.fireBillboardExponentialXMult = val,
                 0.9F,
@@ -52,7 +52,7 @@ public class FireBillboardTweakConfigGroup {
 
 
         heightMultOpt = makeFloatField(
-                SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.heightMult"),
+                SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.heightMult"),
                 () -> config.render.fireBillboardExponentialYMult,
                 val -> config.render.fireBillboardExponentialYMult = val,
                 0.9F,
@@ -61,7 +61,7 @@ public class FireBillboardTweakConfigGroup {
         );
 
         widthStartOpt = makeFloatField(
-                SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.widthStart"),
+                SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.widthStart"),
                 () -> config.render.fireBillboardExponentialXStart,
                 val -> config.render.fireBillboardExponentialXStart = val,
                 0.8F,
@@ -69,7 +69,7 @@ public class FireBillboardTweakConfigGroup {
                 5.00F
         );
         heightStartOpt = makeFloatField(
-                SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.heightStart"),
+                SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.heightStart"),
                 () -> config.render.fireBillboardExponentialYStart,
                 val -> config.render.fireBillboardExponentialYStart = val,
                 0.8F,
@@ -79,10 +79,10 @@ public class FireBillboardTweakConfigGroup {
         setAvailable(config.render.fireBillboardEnable);
 
         return OptionGroup.createBuilder()
-                .name(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.title"))
-                .description(OptionDescription.of(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.desc")))
+                .name(SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.title"))
+                .description(OptionDescription.of(SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.desc")))
                 .option(Option.<Boolean>createBuilder()
-                        .name(SealyModLang.getAsComponent("sealymod.config.render.fireRenderer.enable"))
+                        .name(SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.enable"))
                         .binding(
                                 false,
                                 () -> config.render.fireBillboardEnable,
