@@ -2,46 +2,37 @@ package seal.thelinuxseal.sealymod.client.sealyhud.contexts.client;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.Vec3;
+import seal.thelinuxseal.sealymod.client.sealyhud.contexts.common.PosContext;
 
-public final class ClientCameraContext {
-    public double exactX(){return Minecraft.getInstance().gameRenderer.mainCamera().position().x;}
-    public double exactY(){return Minecraft.getInstance().gameRenderer.mainCamera().position().y;}
-    public double exactZ(){return Minecraft.getInstance().gameRenderer.mainCamera().position().z;}
-    public double x() { return Math.round(exactX() * 100.0) / 100.0; }
-    public double y() { return Math.round(exactY() * 100.0) / 100.0; }
-    public double z() { return Math.round(exactZ() * 100.0) / 100.0; }
-    public int blockX(){return Minecraft.getInstance().gameRenderer.mainCamera().blockPosition().getX();}
-    public int blockY(){return Minecraft.getInstance().gameRenderer.mainCamera().blockPosition().getY();}
-    public int blockZ(){return Minecraft.getInstance().gameRenderer.mainCamera().blockPosition().getZ();}
-    public double yaw(){return Minecraft.getInstance().gameRenderer.mainCamera().yRot();}
-    public double pitch(){return Minecraft.getInstance().gameRenderer.mainCamera().xRot();}
-    public String facing(){
-        Camera camera = Minecraft.getInstance().gameRenderer.mainCamera();
-        String direction = "...";
-        if (camera != null) {
-            float yaw = camera.yRot();
-            // Normalize yaw to 0-360 range
-            float heading = (yaw % 360 + 360) % 360;
+public final class ClientCameraContext implements PosContext {
 
-            // An array of the 8 directions in clockwise order starting from South (0 degrees)
-            String[] directions = {
-                    "South (+Z)",          // 0° (337.5° - 22.5°)
-                    "Southwest (-X, +Z)",   // 45°
-                    "West (-X)",           // 90°
-                    "Northwest (-X, -Z)",   // 135°
-                    "North (-Z)",          // 180°
-                    "Northeast (+X, -Z)",   // 225°
-                    "East (+X)",           // 270°
-                    "Southeast (+X, +Z)"    // 315°
-            };
+    public final ClientCameraChunkContext chunk = new ClientCameraChunkContext();
 
-            // Offset by 22.5 degrees so that 0° sits dead-center in the South slice,
-            // then divide by 45° slices and check the index.
-            int index = (int) Math.floor((heading + 22.5) / 45.0) & 7;
-
-            direction = directions[index];
-        }
-        return direction;
+    private Camera camera() {
+        return Minecraft.getInstance().gameRenderer.mainCamera();
     }
+
+    @Override
+    public Vec3 position() {
+        return camera().position();
+    }
+
+    @Override
+    public BlockPos blockPosition() {
+        return camera().blockPosition();
+    }
+
+    @Override
+    public float yaw() {
+        return camera().yRot();
+    }
+
+    @Override
+    public float pitch() {
+        return camera().xRot();
+    }
+
 
 }
