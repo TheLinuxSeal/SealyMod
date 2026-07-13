@@ -12,7 +12,6 @@ public final class SystemContext {
 
     private final OperatingSystemMXBean os = ManagementFactory.getOperatingSystemMXBean();
     private final MemoryMXBean mem = ManagementFactory.getMemoryMXBean();
-    @SealyHUDFuncAnnotation(name = "Cpu Utilization", desc = "The Cpu Utilization of the Computer", path = "system.cpuUtil()")
     public double cpuUtil() {
         return os.getSystemLoadAverage();
     }

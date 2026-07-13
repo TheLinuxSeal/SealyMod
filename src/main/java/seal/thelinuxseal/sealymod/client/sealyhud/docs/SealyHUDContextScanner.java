@@ -34,11 +34,11 @@ public class SealyHUDContextScanner {
                 continue;
             }
 
-            helpScreen.entries.add(new SealyHUDEditorHelpScreen.HelpEntry(
+            /*helpScreen.entries.add(new SealyHUDEditorHelpScreen.HelpEntry(
                     function.name(),
                     function.desc(),
                     function.path()
-            ));
+            ));*/
 
             //function.
 

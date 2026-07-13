@@ -7,7 +7,7 @@ import seal.thelinuxseal.sealymod.client.sealyhud.contexts.util.UtilContext;
 import seal.thelinuxseal.sealymod.client.sealyhud.contexts.world.WorldContext;
 import seal.thelinuxseal.sealymod.client.sealyhud.docs.SealyHUDSubAnnotation;
 
-public class MainContext {
+public final class MainContext {
     public static MainContext self = new MainContext();
     @SealyHUDSubAnnotation
     public ClientContext client = new ClientContext();
