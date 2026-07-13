@@ -5,7 +5,7 @@ import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
 public final class SealyHUDExprParser {
-    private static final Minecraft client =Minecraft.getInstance();
+    private static  Minecraft client(){return Minecraft.getInstance();}
     public static Expression build(String expr){
         return new ExpressionBuilder(expr)
                 .variables("screenwidth", "screenheight")
@@ -21,8 +21,8 @@ public final class SealyHUDExprParser {
     }
 
     public static double eval(Expression expr){
-        return expr.setVariable("screenwidth", client.getWindow().getGuiScaledWidth())
-                .setVariable("screenheight", client.getWindow().getGuiScaledHeight())
+        return expr.setVariable("screenwidth", client().getWindow().getGuiScaledWidth())
+                .setVariable("screenheight", client().getWindow().getGuiScaledHeight())
                 .evaluate();
     }
 

@@ -1,19 +1,73 @@
 {
-  "sealymod.sealyhud.editor.help.docs":
-  [
-    "SealyHUD Documentation",
-    "Seals are the best",
-    "SEALS!!! 1",
-    "SEALS!!! 2",
-    "SEALS!!! 3",
-    "SEALS!!! 4",
-    "SEALS!!! 5",
-    "SEALS!!! 6",
-    "SEALS!!! 7",
-    "SEALS!!! 8",
-    "SEALS!!! 9",
-    "SEALS!!! 10",
-    "SEALS!!! 11"
+  "player.health.current": {
+    "name": "Current Health",
+    "desc": "Returns the player's current health.",
+    "example": "${player.health.current()}"
+  },
 
-  ]
+  "player.health.max": {
+    "name": "Maximum Health",
+    "desc": "Returns the player's maximum health.",
+    "example": "${player.health.max()}"
+  },
+
+  "player.food.level": {
+    "name": "Food Level",
+    "desc": "Returns the player's current hunger level (0-20).",
+    "example": "${player.food.level()}"
+  },
+
+  "player.food.saturation": {
+    "name": "Food Saturation",
+    "desc": "Returns the player's current saturation value.",
+    "example": "${player.food.saturation()}"
+  },
+
+  "player.pos.x": {
+    "name": "Player X Position",
+    "desc": "Returns the player's X coordinate.",
+    "example": "${player.pos.x()}"
+  },
+
+  "player.pos.y": {
+    "name": "Player Y Position",
+    "desc": "Returns the player's Y coordinate.",
+    "example": "${player.pos.y()}"
+  },
+
+  "player.pos.z": {
+    "name": "Player Z Position",
+    "desc": "Returns the player's Z coordinate.",
+    "example": "${player.pos.z()}"
+  },
+
+  "player.chunk.x": {
+    "name": "Chunk X",
+    "desc": "Returns the X coordinate of the chunk the player is currently in.",
+    "example": "${player.chunk.x()}"
+  },
+
+  "player.chunk.z": {
+    "name": "Chunk Z",
+    "desc": "Returns the Z coordinate of the chunk the player is currently in.",
+    "example": "${player.chunk.z()}"
+  },
+
+  "client.fps": {
+    "name": "Frames Per Second",
+    "desc": "Returns the current FPS.",
+    "example": "${client.fps()}"
+  },
+
+  "client.version": {
+    "name": "Minecraft Version",
+    "desc": "Returns the current Minecraft version.",
+    "example": "${client.version()}"
+  },
+
+  "world.time": {
+    "name": "World Time",
+    "desc": "Returns the current world time in ticks.",
+    "example": "${world.time()}"
+  }
 }

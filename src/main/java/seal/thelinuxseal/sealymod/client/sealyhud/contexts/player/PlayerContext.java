@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 public final class PlayerContext {
     public final PlayerPosContext pos = new PlayerPosContext();
     public final PlayerChunkContext chunk = new PlayerChunkContext();
+    public final PlayerLookingContext looking = new PlayerLookingContext();
     public String gameMode(){
         Minecraft client = Minecraft.getInstance();
         return client.gameMode != null ? client.gameMode.getPlayerMode().getName() : "...";
