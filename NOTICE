@@ -1,0 +1,16 @@
+SealyMod
+Copyright (c) 2026 TheLinuxSeal
+
+This project includes the following third-party libraries:
+
+- exp4j
+  Copyright (c) Object Hunter
+  Licensed under the Apache License 2.0
+
+- Apache Commons JEXL
+  Copyright The Apache Software Foundation
+  Licensed under the Apache License 2.0
+
+- Apache Commons Logging
+  Copyright The Apache Software Foundation
+  Licensed under the Apache License 2.0
