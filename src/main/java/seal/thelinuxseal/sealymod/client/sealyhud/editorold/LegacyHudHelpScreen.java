@@ -2,21 +2,20 @@ package seal.thelinuxseal.sealymod.client.sealyhud.editorold;
 
 import com.google.gson.JsonObject;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLangManager;
-import org.jetbrains.annotations.ApiStatus;
+import seal.thelinuxseal.sealymod.client.SealyModClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Deprecated
-class SealyHUDEditorHelpScreen {
+class LegacyHudHelpScreen {
 
-    private final seal.thelinuxseal.sealymod.client.sealyhud.editorold.SealyHUDEditor parent;
+    private final LegacyHudEditor parent;
 
     private JsonObject data = new JsonObject();
     private final List<SubHelp> entries = new ArrayList<>();
 
-    public SealyHUDEditorHelpScreen(SealyHUDEditor parent) {
+    public LegacyHudHelpScreen(LegacyHudEditor parent) {
         this.parent = parent;
         reload();
     }
@@ -24,7 +23,7 @@ class SealyHUDEditorHelpScreen {
     public void reload() {
         entries.clear();
 
-        JsonObject obj = SealyModLangManager.SEALYHUD_DOCS.getAll();
+        JsonObject obj = SealyModClient.lang.getAsJsonElement("sealymod.sealyhud.editor.help.docs").getAsJsonObject();
 
         if (!obj.isJsonObject()) {
             return;

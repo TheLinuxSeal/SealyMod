@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import seal.thelinuxseal.sealymod.client.config.SealyModConfigHandler;
+import seal.thelinuxseal.sealymod.client.config.ConfigHandler;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.feature.FlameFeatureRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import seal.thelinuxseal.sealymod.client.config.data.RenderConfig;
 
 @Mixin(FlameFeatureRenderer.class)
-public class SealyModFireBillboardTweak {
+public class FireBillboardTweak {
 
     @Shadow
     private static void fireVertex(
@@ -39,7 +39,7 @@ public class SealyModFireBillboardTweak {
     private void prepare(
             FlameFeatureRenderer.Submit submit, VertexConsumer buffer, TextureAtlasSprite fire1, TextureAtlasSprite fire2, CallbackInfo ci
     ) {
-        RenderConfig renderConfig = SealyModConfigHandler.get().render;
+        RenderConfig renderConfig = ConfigHandler.get().render;
         if (renderConfig.fireBillboardEnable) {
             PoseStack.Pose pose = submit.pose();
             EntityRenderState state = submit.entityRenderState();
@@ -49,8 +49,8 @@ public class SealyModFireBillboardTweak {
             pose.scale(s, s, s);
 
             // CUSTOM: Custom configuration values initialized
-            float r = SealyModConfigHandler.get().render.fireBillboardExponentialXStart;
-            float ry = SealyModConfigHandler.get().render.fireBillboardExponentialYStart;
+            float r = ConfigHandler.get().render.fireBillboardExponentialXStart;
+            float ry = ConfigHandler.get().render.fireBillboardExponentialYStart;
 
             float xo = 0.0F;
             float h = state.boundingBoxHeight / s;
@@ -83,8 +83,8 @@ public class SealyModFireBillboardTweak {
                 yo -= 0.45F;
 
                 // CUSTOM: Custom multipliers applied here
-                r *= SealyModConfigHandler.get().render.fireBillboardExponentialXMult;
-                ry *= SealyModConfigHandler.get().render.fireBillboardExponentialYMult;
+                r *= ConfigHandler.get().render.fireBillboardExponentialXMult;
+                ry *= ConfigHandler.get().render.fireBillboardExponentialYMult;
 
                 zo -= 0.03F;
                 ss++;

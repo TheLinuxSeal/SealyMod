@@ -3,14 +3,9 @@ package seal.thelinuxseal.sealymod.client.sealyhud.parser;
 import org.apache.commons.jexl3.*;
 import org.apache.commons.jexl3.introspection.JexlPermissions;
 import seal.thelinuxseal.sealymod.client.sealyhud.contexts.MainContext;
-import seal.thelinuxseal.sealymod.client.sealyhud.contexts.client.ClientContext;
-import seal.thelinuxseal.sealymod.client.sealyhud.contexts.player.PlayerContext;
-import seal.thelinuxseal.sealymod.client.sealyhud.contexts.system.SystemContext;
-import seal.thelinuxseal.sealymod.client.sealyhud.contexts.util.UtilContext;
-import seal.thelinuxseal.sealymod.client.sealyhud.contexts.world.WorldContext;
 import org.apache.commons.jexl3.JxltEngine.Expression;
 
-public final class SealyHUDTextParser {
+public class HudTextParser {
     private static final JexlEngine jexl = new JexlBuilder()
             .cache(512)
             .strict(true)
@@ -20,6 +15,7 @@ public final class SealyHUDTextParser {
                     "seal.thelinuxseal.sealymod.client.sealyhud.contexts.client.*",
                     "seal.thelinuxseal.sealymod.client.sealyhud.contexts.player.*",
                     "seal.thelinuxseal.sealymod.client.sealyhud.contexts.system.*",
+                    "seal.thelinuxseal.sealymod.client.sealyhud.contexts.common.*",
                     "seal.thelinuxseal.sealymod.client.sealyhud.contexts.util.*",
                     "seal.thelinuxseal.sealymod.client.sealyhud.contexts.world.*",
                     "java.lang { String{} Math{} Integer{} Double{} Float{} Long{} }",

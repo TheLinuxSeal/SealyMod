@@ -4,26 +4,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SealyHUDElementManager {
-    private static final List<SealyHUDElement> elements = new ArrayList<>();
+public class HudElementManager {
+    private static final List<HudElement> elements = new ArrayList<>();
 
     public static void clear() {
         elements.clear();
     }
 
-    public static void add(SealyHUDElement element) {
+    public static void add(HudElement element) {
         elements.add(element);
     }
 
-    public static List<SealyHUDElement> getAll() {
+    public static List<HudElement> getAll() {
         return Collections.unmodifiableList(elements);
     }
 
-    public static void loadFromConfig(List<SealyHUDElement> configList) {
+    public static void loadFromConfig(List<HudElement> configList) {
         clear();
-        for (SealyHUDElement cfg : configList) {
+        for (HudElement cfg : configList) {
             // Load everything! We don't skip disabled ones anymore.
-            SealyHUDElement element = new SealyHUDElement(
+            HudElement element = new HudElement(
                     cfg.getXFormula(),
                     cfg.getYFormula(),
                     cfg.getTextSizeFormula(),

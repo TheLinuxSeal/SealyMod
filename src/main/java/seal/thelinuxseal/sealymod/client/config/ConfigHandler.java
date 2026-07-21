@@ -8,14 +8,14 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
 
 import com.google.gson.GsonBuilder;
-import seal.thelinuxseal.sealymod.client.config.data.SealyModConfig;
+import seal.thelinuxseal.sealymod.client.config.data.RootConfig;
 
 import java.nio.file.Path;
 
-public class SealyModConfigHandler {
+public class ConfigHandler {
 
-    public static final ConfigClassHandler<SealyModConfig> HANDLER =
-            ConfigClassHandler.createBuilder(SealyModConfig.class)
+    public static final ConfigClassHandler<RootConfig> HANDLER =
+            ConfigClassHandler.createBuilder(RootConfig.class)
                     .id(Identifier.fromNamespaceAndPath("sealymod", "config"))
                     .serializer(config -> GsonConfigSerializerBuilder.create(config)
                             .setPath(getConfigPath())
@@ -30,13 +30,12 @@ public class SealyModConfigHandler {
                 .resolve("sealymod.json5");
     }
 
-    public static SealyModConfig get() {
+    public static RootConfig get() {
         return HANDLER.instance();
     }
 
     public static void save() {
         HANDLER.save();
-        SealyModClient.reloadAfterReconfig();
     }
 
     public static void load() {

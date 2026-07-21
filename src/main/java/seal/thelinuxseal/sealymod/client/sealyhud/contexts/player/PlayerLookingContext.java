@@ -10,24 +10,18 @@ import seal.thelinuxseal.sealymod.client.sealyhud.contexts.common.BlockContext;
 import seal.thelinuxseal.sealymod.client.sealyhud.contexts.common.EntityContext;
 
 public final class PlayerLookingContext {
-    public final BlockContext block = new BlockContext() {
-        @Override
-        public BlockState block() {
-            Minecraft mc = Minecraft.getInstance();
+    public BlockContext block() {
+        Minecraft mc = Minecraft.getInstance();
 
-            if (mc.hitResult instanceof BlockHitResult hit) {
-                return mc.level.getBlockState(hit.getBlockPos());
-            }
-
-            return Blocks.AIR.defaultBlockState();
+        if (mc.hitResult instanceof BlockHitResult hit) {
+            return new BlockContext(mc.level.getBlockState(hit.getBlockPos()));
         }
+
+        return new BlockContext(Blocks.AIR.defaultBlockState());
     };
-    public final EntityContext entity = new EntityContext() {
-        @Override
-        public @Nullable Entity entity() {
-            Minecraft mc = Minecraft.getInstance();
+    public EntityContext entity() {
+        Minecraft mc = Minecraft.getInstance();
 
-            return mc.crosshairPickEntity;
-        }
+        return new EntityContext(mc.crosshairPickEntity);
     };
 }

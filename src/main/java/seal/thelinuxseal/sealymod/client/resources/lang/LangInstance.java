@@ -12,15 +12,16 @@ import net.minecraft.server.packs.resources.Resource;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 
-public final class SealyModLang {
+public class LangInstance {
     private final Minecraft client = Minecraft.getInstance();
     private JsonObject langData;
-    private String subPath;
+    private Function<String, String> pathFunc;
 
-    public SealyModLang(String subPath){
-        this.subPath = subPath;
+    public LangInstance(Function<String, String> pathFunc){
+        this.pathFunc = pathFunc;
 
     }
 
@@ -38,7 +39,7 @@ public final class SealyModLang {
         return Component.literal(get(key));
     }
 
-    public JsonElement getAsJsonObj(String key) {
+    public JsonElement getAsJsonElement(String key) {
         // If data isn't loaded or missing the key, wrap the fallback key into a JsonPrimitive
         if (langData == null || !langData.has(key)) {
             return new JsonPrimitive(key);
@@ -54,7 +55,7 @@ public final class SealyModLang {
 
     public void reload() {
         String lang = Minecraft.getInstance().getLanguageManager().getSelected();
-        Identifier path = Identifier.fromNamespaceAndPath("sealymod", "sealylang/" + lang + "/" + subPath);
+        Identifier path = Identifier.fromNamespaceAndPath("sealymod", "sealylang/" + pathFunc.apply(lang));
 
         List<Resource> langFiles = client.getResourceManager().getResourceStack(path);
 

@@ -1,26 +1,25 @@
 package seal.thelinuxseal.sealymod.client.sealyhud;
 
 import seal.thelinuxseal.sealymod.client.SealyModClient;
-import seal.thelinuxseal.sealymod.client.config.SealyModConfigHandler;
-import seal.thelinuxseal.sealymod.client.sealyhud.element.SealyHUDElement;
-import seal.thelinuxseal.sealymod.client.sealyhud.element.SealyHUDElementManager;
-import seal.thelinuxseal.sealymod.client.sealyhud.parser.SealyHUDTextParser;
+import seal.thelinuxseal.sealymod.client.config.ConfigHandler;
+import seal.thelinuxseal.sealymod.client.sealyhud.element.HudElement;
+import seal.thelinuxseal.sealymod.client.sealyhud.element.HudElementManager;
+import seal.thelinuxseal.sealymod.client.sealyhud.parser.HudTextParser;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
-import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 
-public class SealyHUD {
+public class SealyHud {
 
     public void init() {
-        SealyHUDTextParser.init();
-        SealyHUDElementManager.loadFromConfig(SealyModConfigHandler.get().sealyHUD.hudWidgets);
+        HudTextParser.init();
+        HudElementManager.loadFromConfig(ConfigHandler.get().sealyHud.widgets);
         HudElementRegistry.addLast(Identifier.fromNamespaceAndPath(SealyModClient.MOD_ID, "last_element"), this.hudLayer());
     }
 
-    private HudElement hudLayer() {
+    private net.fabricmc.fabric.api.client.rendering.v1.hud.HudElement hudLayer() {
         return (graphics, deltaTracker) -> {
-            if (!SealyModConfigHandler.get().sealyHUD.enable) {
+            if (!ConfigHandler.get().sealyHud.enable) {
                 return;
             }
             Minecraft minecraft = Minecraft.getInstance();
@@ -29,7 +28,7 @@ public class SealyHUD {
                 return;
             }
 
-            for (SealyHUDElement element : SealyHUDElementManager.getAll()) {
+            for (HudElement element : HudElementManager.getAll()) {
                 // Check the toggle right here before rendering!
                 if (!element.isEnabled()) {
                     continue;
@@ -38,8 +37,8 @@ public class SealyHUD {
                 graphics.pose().pushMatrix();
                 graphics.pose().translate(element.getX(), element.getY());
                 graphics.pose().scale(
-                        element.getTextSize(),
-                        element.getTextSize()
+                        element.getTextSize()/10,
+                        element.getTextSize()/10
                 );
 
                 graphics.text(

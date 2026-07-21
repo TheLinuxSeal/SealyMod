@@ -4,34 +4,40 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
+import seal.thelinuxseal.sealymod.client.sealyhud.contexts.common.ChunkContext;
 import seal.thelinuxseal.sealymod.client.sealyhud.contexts.common.PosContext;
+import seal.thelinuxseal.sealymod.client.sealyhud.docs.ContextFunc;
 
-public final class ClientCameraContext implements PosContext {
-
-    public final ClientCameraChunkContext chunk = new ClientCameraChunkContext();
+public final class ClientCameraContext {
 
     private Camera camera() {
         return Minecraft.getInstance().gameRenderer.mainCamera();
     }
 
-    @Override
-    public Vec3 position() {
-        return camera().position();
-    }
+    public PosContext pos = new PosContext() {
+        @Override
+        public Vec3 position() {
+            return camera().position();
+        }
 
-    @Override
-    public BlockPos blockPosition() {
-        return camera().blockPosition();
-    }
+        @Override
+        public BlockPos blockPosition() {
+            return camera().blockPosition();
+        }
 
-    @Override
-    public float yaw() {
-        return camera().yRot();
-    }
+        @Override
+        public double yaw() {
+            return camera().yRot();
+        }
 
-    @Override
-    public float pitch() {
-        return camera().xRot();
+        @Override
+        public double pitch() {
+            return camera().xRot();
+        }
+    };
+    @ContextFunc(path = "client.camera.chunk()", name = "Camera Chunk", desc = "Returns the chunk that the camera is in", returns = "Chunk")
+    ChunkContext chunk(){
+        return new ChunkContext(Minecraft.getInstance().level.getChunk(camera().blockPosition()).getPos());
     }
 
 

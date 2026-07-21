@@ -2,22 +2,26 @@ package seal.thelinuxseal.sealymod.client.sealyhud.contexts.common;
 
 import net.minecraft.world.level.ChunkPos;
 
-public interface ChunkContext {
+public final class ChunkContext {
 
-    ChunkPos chunk();
+    ChunkPos chunk;
 
-    default int chunkX() { return chunk().x(); }
-    default int chunkZ() { return chunk().z(); }
+    public ChunkContext(ChunkPos chunk){
+        this.chunk = chunk;
+    }
 
-    default int minBlockX() { return chunk().getMinBlockX(); }
-    default int minBlockZ() { return chunk().getMinBlockZ(); }
+    int chunkX() { return chunk.x(); }
+    int chunkZ() { return chunk.z(); }
 
-    default int maxBlockX() { return chunk().getMaxBlockX(); }
-    default int maxBlockZ() { return chunk().getMaxBlockZ(); }
+    int minBlockX() { return chunk.getMinBlockX(); }
+    int minBlockZ() { return chunk.getMinBlockZ(); }
 
-    default int regionX() { return chunk().getRegionX(); }
-    default int regionZ() { return chunk().getRegionZ(); }
+    int maxBlockX() { return chunk.getMaxBlockX(); }
+    int maxBlockZ() { return chunk.getMaxBlockZ(); }
 
-    default int regionRelativeX() { return chunk().getRegionLocalX(); }
-    default int regionRelativeZ() { return chunk().getRegionLocalZ(); }
+    int regionX() { return chunk.getRegionX(); }
+    int regionZ() { return chunk.getRegionZ(); }
+
+    int regionRelativeX() { return chunk.getRegionLocalX(); }
+    int regionRelativeZ() { return chunk.getRegionLocalZ(); }
 }

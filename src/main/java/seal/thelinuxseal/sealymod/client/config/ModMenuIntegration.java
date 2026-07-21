@@ -4,12 +4,12 @@ import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 
 import net.minecraft.client.gui.screens.Screen;
-import seal.thelinuxseal.sealymod.client.config.screens.MainConfigScreen;
+import seal.thelinuxseal.sealymod.client.config.screens.RootConfigScreen;
 
-public class SealyModMenuIntegration implements ModMenuApi {
+public class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<Screen> getModConfigScreenFactory() {
-        return parent -> MainConfigScreen.create(parent, SealyModConfigHandler.get());
+        return parent -> RootConfigScreen.create(parent, ConfigHandler.get());
     }
 }

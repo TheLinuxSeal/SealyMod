@@ -1,7 +1,6 @@
 package seal.thelinuxseal.sealymod.client.sealyhud.contexts.system;
 
 import net.minecraft.client.Minecraft;
-import seal.thelinuxseal.sealymod.client.sealyhud.docs.SealyHUDFuncAnnotation;
 
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;

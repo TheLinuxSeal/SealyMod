@@ -6,5 +6,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface SealyHUDSubAnnotation { }
+@Target(ElementType.METHOD)
+public @interface ContextFunc {
+
+    String path();
+
+    String name();
+
+    String desc();
+
+    String returns();
+}

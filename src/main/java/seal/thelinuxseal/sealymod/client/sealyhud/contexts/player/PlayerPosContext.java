@@ -23,12 +23,10 @@ public final class PlayerPosContext implements PosContext {
     }
 
     @Override
-    public float yaw() {
-        return player().getYRot();
-    }
+    public double yaw() { return player().getYRot(); }
 
     @Override
-    public float pitch() {
+    public double pitch() {
         return player().getXRot();
     }
 }

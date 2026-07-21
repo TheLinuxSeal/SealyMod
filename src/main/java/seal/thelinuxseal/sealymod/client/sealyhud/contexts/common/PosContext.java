@@ -1,5 +1,6 @@
 package seal.thelinuxseal.sealymod.client.sealyhud.contexts.common;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
 
@@ -9,9 +10,9 @@ public interface PosContext {
 
     BlockPos blockPosition();
 
-    float yaw();
+    double yaw();
 
-    float pitch();
+    double pitch();
 
     default double exactX() { return position().x; }
     default double exactY() { return position().y; }
@@ -25,12 +26,12 @@ public interface PosContext {
     default int blockY() { return blockPosition().getY(); }
     default int blockZ() { return blockPosition().getZ(); }
 
-    default double yawDegrees() { return yaw(); }
+    //default double yawDegrees() { return yaw(); }
 
-    default double pitchDegrees() { return pitch(); }
+    //default double pitchDegrees() { return pitch(); }
 
     default String facing() {
-        float heading = (yaw() % 360 + 360) % 360;
+        double heading = (yaw() % 360 + 360) % 360;
 
         String[] directions = {
                 "South (+Z)",
@@ -45,4 +46,6 @@ public interface PosContext {
 
         return directions[(int) Math.floor((heading + 22.5) / 45.0) & 7];
     }
+
+
 }

@@ -1,12 +1,12 @@
 package seal.thelinuxseal.sealymod.client.sealyhud.element;
 
-import seal.thelinuxseal.sealymod.client.sealyhud.parser.SealyHUDExprParser;
-import seal.thelinuxseal.sealymod.client.sealyhud.parser.SealyHUDTextParser;
+import seal.thelinuxseal.sealymod.client.sealyhud.parser.HudExprParser;
+import seal.thelinuxseal.sealymod.client.sealyhud.parser.HudTextParser;
 import net.objecthunter.exp4j.Expression;
 import org.apache.commons.jexl3.JxltEngine;
 
 
-public class SealyHUDElement {
+public class HudElement {
     private String xFormula;
     private String yFormula;
     private String textTemplate;
@@ -20,7 +20,7 @@ public class SealyHUDElement {
     private transient JxltEngine.Expression jexlTextExpr;
 
     // Default constructor for serialization/initial default values
-    public SealyHUDElement(String xFormula, String yFormula, String textSizeFormula, String textTemplate, boolean enabled) {
+    public HudElement(String xFormula, String yFormula, String textSizeFormula, String textTemplate, boolean enabled) {
         this.xFormula = xFormula;
         this.yFormula = yFormula;
         this.textSizeFormula = textSizeFormula;
@@ -30,31 +30,31 @@ public class SealyHUDElement {
     }
 
     public void compile() {
-        this.xExpr = SealyHUDExprParser.build(xFormula,"0");
-        this.yExpr = SealyHUDExprParser.build(yFormula,"0");
-        this.textSizeExpr = SealyHUDExprParser.build(textSizeFormula,"0.75");
-        this.jexlTextExpr = SealyHUDTextParser.createExpr(this.textTemplate);
+        this.xExpr = HudExprParser.build(xFormula,"0");
+        this.yExpr = HudExprParser.build(yFormula,"0");
+        this.textSizeExpr = HudExprParser.build(textSizeFormula,"0.75");
+        this.jexlTextExpr = HudTextParser.createExpr(this.textTemplate);
     }
 
     public int getX() {
         if (xExpr == null) return 0;
 
-        return (int) SealyHUDExprParser.eval(xExpr,0);
+        return (int) HudExprParser.eval(xExpr,0);
     }
 
     public int getY() {
         if (yExpr == null) return 0;
 
-        return (int) SealyHUDExprParser.eval(yExpr,0);
+        return (int) HudExprParser.eval(yExpr,0);
     }
     public float getTextSize() {
         if (textSizeExpr == null) return 0.75F;
 
-        return (float) SealyHUDExprParser.eval(textSizeExpr,0.75F);
+        return (float) HudExprParser.eval(textSizeExpr,0.75F);
     }
 
     public String getText() {
-        return SealyHUDTextParser.getJexlText(jexlTextExpr);
+        return HudTextParser.getJexlText(jexlTextExpr);
     }
 
     // Getters and Setters needed for serialization and YACL bindings

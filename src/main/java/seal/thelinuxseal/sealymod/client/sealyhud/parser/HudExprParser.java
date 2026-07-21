@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
-public final class SealyHUDExprParser {
+public class HudExprParser {
     private static  Minecraft client(){return Minecraft.getInstance();}
     public static Expression build(String expr){
         return new ExpressionBuilder(expr)

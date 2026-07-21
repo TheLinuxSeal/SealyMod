@@ -2,8 +2,8 @@ package seal.thelinuxseal.sealymod.client.config.screens.render;
 
 import dev.isxander.yacl3.api.controller.TickBoxControllerBuilder;
 import net.minecraft.network.chat.Component;
-import seal.thelinuxseal.sealymod.client.config.data.SealyModConfig;
-import seal.thelinuxseal.sealymod.client.resources.lang.SealyModLangManager;
+import seal.thelinuxseal.sealymod.client.SealyModClient;
+import seal.thelinuxseal.sealymod.client.config.data.RootConfig;
 import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionDescription;
 import dev.isxander.yacl3.api.OptionGroup;
@@ -40,9 +40,9 @@ public class FireBillboardTweakConfigGroup {
 
     }
 
-    public static OptionGroup create(Screen parent, SealyModConfig config) {
+    public static OptionGroup create(Screen parent, RootConfig config) {
          widthMultOpt = makeFloatField(
-                SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.widthMult"),
+                SealyModClient.lang.getAsComponent("sealymod.config.render.fireRenderer.widthMult"),
                 () -> config.render.fireBillboardExponentialXMult,
                 val -> config.render.fireBillboardExponentialXMult = val,
                 0.9F,
@@ -52,7 +52,7 @@ public class FireBillboardTweakConfigGroup {
 
 
         heightMultOpt = makeFloatField(
-                SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.heightMult"),
+                SealyModClient.lang.getAsComponent("sealymod.config.render.fireRenderer.heightMult"),
                 () -> config.render.fireBillboardExponentialYMult,
                 val -> config.render.fireBillboardExponentialYMult = val,
                 0.9F,
@@ -61,7 +61,7 @@ public class FireBillboardTweakConfigGroup {
         );
 
         widthStartOpt = makeFloatField(
-                SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.widthStart"),
+                SealyModClient.lang.getAsComponent("sealymod.config.render.fireRenderer.widthStart"),
                 () -> config.render.fireBillboardExponentialXStart,
                 val -> config.render.fireBillboardExponentialXStart = val,
                 0.8F,
@@ -69,7 +69,7 @@ public class FireBillboardTweakConfigGroup {
                 5.00F
         );
         heightStartOpt = makeFloatField(
-                SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.heightStart"),
+                SealyModClient.lang.getAsComponent("sealymod.config.render.fireRenderer.heightStart"),
                 () -> config.render.fireBillboardExponentialYStart,
                 val -> config.render.fireBillboardExponentialYStart = val,
                 0.8F,
@@ -79,10 +79,10 @@ public class FireBillboardTweakConfigGroup {
         setAvailable(config.render.fireBillboardEnable);
 
         return OptionGroup.createBuilder()
-                .name(SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.title"))
-                .description(OptionDescription.of(SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.desc")))
+                .name(SealyModClient.lang.getAsComponent("sealymod.config.render.fireRenderer.title"))
+                .description(OptionDescription.of(SealyModClient.lang.getAsComponent("sealymod.config.render.fireRenderer.desc")))
                 .option(Option.<Boolean>createBuilder()
-                        .name(SealyModLangManager.MAIN.getAsComponent("sealymod.config.render.fireRenderer.enable"))
+                        .name(SealyModClient.lang.getAsComponent("sealymod.config.render.fireRenderer.enable"))
                         .binding(
                                 false,
                                 () -> config.render.fireBillboardEnable,

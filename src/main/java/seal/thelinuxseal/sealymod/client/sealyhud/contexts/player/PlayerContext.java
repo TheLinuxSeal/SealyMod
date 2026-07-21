@@ -1,10 +1,13 @@
 package seal.thelinuxseal.sealymod.client.sealyhud.contexts.player;
 
 import net.minecraft.client.Minecraft;
+import seal.thelinuxseal.sealymod.client.sealyhud.contexts.common.ChunkContext;
 
 public final class PlayerContext {
     public final PlayerPosContext pos = new PlayerPosContext();
-    public final PlayerChunkContext chunk = new PlayerChunkContext();
+    ChunkContext chunk(){
+        return new ChunkContext(Minecraft.getInstance().level.getChunk(Minecraft.getInstance().player.blockPosition()).getPos());
+    }
     public final PlayerLookingContext looking = new PlayerLookingContext();
     public String gameMode(){
         Minecraft client = Minecraft.getInstance();

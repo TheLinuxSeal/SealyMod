@@ -13,4 +13,16 @@ public class RenderConfig {
     public float fireBillboardExponentialXStart = 0.8F;
     @SerialEntry
     public float fireBillboardExponentialYStart = 0.8F;
+    @SerialEntry
+    public boolean crosshairTweakEnable = false;
+    @SerialEntry
+    public int crosshairWidth = 15;
+    @SerialEntry
+    public int crosshairHeight = 15;
+    @SerialEntry
+    public int attackIndicatorWidth = 16;
+    @SerialEntry
+    public int attackIndicatorHeight = 4;
+    @SerialEntry
+    public int attackIndicatorOffset = 0;
 }

@@ -2,12 +2,15 @@ package seal.thelinuxseal.sealymod.client.sealyhud.contexts.common;
 
 import net.minecraft.world.entity.Entity;
 
-public interface EntityContext {
-    Entity entity();
-    private boolean isNull(){
-        return entity() == null;
+public final class EntityContext {
+    Entity entity;
+    public EntityContext(Entity entity){
+        this.entity = entity;
     }
-    default String name(){
-        return entity().getName().getString();
+    private boolean isNull(){
+        return entity == null;
+    }
+    String name(){
+        return entity.getName().getString();
     }
 }
