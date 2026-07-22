@@ -1,7 +1,8 @@
-package seal.thelinuxseal.sealymod.client.sealyhud.editor;
+package seal.thelinuxseal.sealymod.client.sealyhud.editor.help;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -10,25 +11,25 @@ import seal.thelinuxseal.sealymod.client.SealyModClient;
 import seal.thelinuxseal.sealymod.client.sealyhud.contexts.MainContext;
 import seal.thelinuxseal.sealymod.client.sealyhud.docs.ExtraDocContext;
 import seal.thelinuxseal.sealymod.client.sealyhud.docs.HudContextScanner;
+import seal.thelinuxseal.sealymod.client.sealyhud.editor.HudEditor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static seal.thelinuxseal.sealymod.client.sealyhud.editor.HudEditorConstants.bottomClipY;
-import static seal.thelinuxseal.sealymod.client.sealyhud.editor.HudEditorConstants.topClipY;
+import static seal.thelinuxseal.sealymod.client.sealyhud.editor.HudEditor.bottomClipY;
+import static seal.thelinuxseal.sealymod.client.sealyhud.editor.HudEditor.topClipY;
 
 public class HudHelpScreen extends Screen {
 
-    private final HudEditor parent;
+    protected final HudEditor parent;
 
-    private Button exitHelpBtn;
-
-    public final List<Map<String,String>> entries = new ArrayList<>();
+    //public final List<Map<String,String>> entries = new ArrayList<>();
+    public List<HudHelpScreenNode> nodes = new ArrayList<>();
 
     private double scrollAmount;
 
-    private float arrowWidth;
+    protected float arrowWidth;
 
     private int totalContentHeight;
 
@@ -40,7 +41,7 @@ public class HudHelpScreen extends Screen {
 
     @Override
     protected void init() {
-        exitHelpBtn = Button.builder(
+        Button exitHelpBtn = Button.builder(
                 SealyModClient.lang.getAsComponent("sealymod.sealyhud.editor.help.exit"),
                 b -> Minecraft.getInstance().setScreenAndShow(parent)
         ).bounds(width - 120, height - 35, 100, 20).build();
@@ -49,9 +50,10 @@ public class HudHelpScreen extends Screen {
     }
 
     private void reload() {
-        entries.clear();
-        HudContextScanner.scan("context", MainContext.self, this);
-        HudContextScanner.scan("context", ExtraDocContext.self, this);
+        //entries.clear();
+        nodes.clear();
+        nodes.add(HudContextScanner.scan("context", MainContext.self, this,"API"));
+        nodes.add(HudContextScanner.scan("context", ExtraDocContext.self, this,"API Classes"));
         arrowWidth = font.getSplitter().stringWidth(" -> ");
 
         //;
@@ -86,11 +88,15 @@ public class HudHelpScreen extends Screen {
 
         int y = (int)(30 - scrollAmount);
         graphics.enableScissor(20,20,width-20,height-50);
-        for (Map<String,String> entry : entries) {
-            y = renderEntry(graphics,y,entry);
-
+        Position pos =  new Position(30, y);
+        for (HudHelpScreenNode n : nodes){
+            pos = n.render(graphics,mouseX,mouseY,delta,pos);
         }
-        totalContentHeight = y;
+        //for (Map<String,String> entry : entries) {
+        //    y = renderEntry(graphics,y,entry);
+        //
+        //}
+        totalContentHeight = 1000000;
         graphics.disableScissor();
     }
 
@@ -99,6 +105,10 @@ public class HudHelpScreen extends Screen {
         int viewHeight = this.height - bottomClipY - topClipY;
         this.scrollAmount = Mth.clamp(this.scrollAmount - scrollY * (double)15.0F, 0.0F, Math.max(0, totalContentHeight - viewHeight + 20));
         return true;
+    }
+
+    public void addNewWidget(AbstractWidget w){
+        this.addWidget(w);
     }
 
     private int renderEntry(GuiGraphicsExtractor graphics, int startY, Map<String,String> entry) {
@@ -151,5 +161,5 @@ public class HudHelpScreen extends Screen {
         y += 20;
         return y;
     }
-
+    protected record Position(float x, float y){}
 }

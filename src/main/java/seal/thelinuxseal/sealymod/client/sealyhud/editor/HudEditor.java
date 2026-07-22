@@ -2,11 +2,13 @@
 
 package seal.thelinuxseal.sealymod.client.sealyhud.editor;
 
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.NonNull;
 import seal.thelinuxseal.sealymod.client.SealyModClient;
 import seal.thelinuxseal.sealymod.client.config.data.RootConfig;
 import seal.thelinuxseal.sealymod.client.config.ConfigHandler;
+import seal.thelinuxseal.sealymod.client.sealyhud.editor.help.HudHelpScreen;
 import seal.thelinuxseal.sealymod.client.sealyhud.element.HudElement;
 import seal.thelinuxseal.sealymod.client.sealyhud.element.HudElementManager;
 import java.util.ArrayList;
@@ -16,10 +18,9 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.util.Mth;
 
-import static seal.thelinuxseal.sealymod.client.sealyhud.editor.HudEditorConstants.bottomClipY;
-import static seal.thelinuxseal.sealymod.client.sealyhud.editor.HudEditorConstants.topClipY;
-
 public class HudEditor extends Screen {
+    public static int topClipY = 20;
+    public static int bottomClipY = 50;
     private final Screen parent;
     private final RootConfig config;
     //private final List<WidgetRowEntry> UIEntries = new ArrayList<>();
@@ -130,6 +131,8 @@ public class HudEditor extends Screen {
 
 
 
+
+
     @Override
     public void extractRenderState(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
         super.extractRenderState(graphics, mouseX, mouseY, delta);
@@ -144,6 +147,7 @@ public class HudEditor extends Screen {
         graphics.disableScissor();
         //graphics.fill(0, this.height - 50 + 15, this.width, this.height, -15592942);
     }
+
 
 }
 

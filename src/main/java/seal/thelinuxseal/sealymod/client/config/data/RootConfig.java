@@ -4,7 +4,7 @@ import dev.isxander.yacl3.config.v2.api.SerialEntry;
 
 public class RootConfig {
     @SerialEntry
-    public String cfgVer = "0.1.0";
+    public int cfgVer = 1;
 
     @SerialEntry
     public SealyHudConfig sealyHud;

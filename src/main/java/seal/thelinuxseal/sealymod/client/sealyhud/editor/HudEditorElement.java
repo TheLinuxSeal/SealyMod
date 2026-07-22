@@ -10,8 +10,8 @@ import net.minecraft.resources.Identifier;
 import seal.thelinuxseal.sealymod.client.SealyModClient;
 import seal.thelinuxseal.sealymod.client.sealyhud.element.HudElement;
 
-import static seal.thelinuxseal.sealymod.client.sealyhud.editor.HudEditorConstants.bottomClipY;
-import static seal.thelinuxseal.sealymod.client.sealyhud.editor.HudEditorConstants.topClipY;
+import static seal.thelinuxseal.sealymod.client.sealyhud.editor.HudEditor.bottomClipY;
+import static seal.thelinuxseal.sealymod.client.sealyhud.editor.HudEditor.topClipY;
 
 public class HudEditorElement {
     protected HudElement element;

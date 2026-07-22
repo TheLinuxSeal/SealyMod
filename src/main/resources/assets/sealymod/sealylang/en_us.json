@@ -19,6 +19,8 @@
   "sealymod.sealyhud.editor.exit": "Exit",
   "sealymod.sealyhud.editor.help": "Help",
   "sealymod.sealyhud.editor.help.exit": "Exit",
+  "sealymod.sealyhud.editor.help.node.expanded": "+",
+  "sealymod.sealyhud.editor.help.node.closed": "§8-",
   "sealymod.sealyhud.editor.help.error": "Error loading docs...",
   "sealymod.sealyhud.editor.help.docs": {},
   "sealymod.config.render.title": "Rendering",
