@@ -17,10 +17,10 @@
 	"environment": "client",
 	"entrypoints": {
 		"client": [
-			"seal.thelinuxseal.sealymod.client.SealyModClient"
+			"io.github.thelinuxseal.sealymod.client.SealyModClient"
 		],
 		"modmenu": [
-			"seal.thelinuxseal.sealymod.client.config.ModMenuIntegration"
+			"io.github.thelinuxseal.sealymod.client.config.ModMenuIntegration"
 		]
 	},
 	"mixins": [

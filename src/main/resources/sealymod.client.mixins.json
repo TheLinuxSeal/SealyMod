@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "seal.thelinuxseal.sealymod.client.mixin",
+	"package": "io.github.thelinuxseal.sealymod.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
 		"FireBillboardTweak",
