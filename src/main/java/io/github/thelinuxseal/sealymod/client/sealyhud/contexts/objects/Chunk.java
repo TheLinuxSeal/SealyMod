@@ -1,4 +1,4 @@
-package io.github.thelinuxseal.sealymod.client.sealyhud.contexts.common;
+package io.github.thelinuxseal.sealymod.client.sealyhud.contexts.objects;
 
 import net.minecraft.world.level.ChunkPos;
 import io.github.thelinuxseal.sealymod.client.sealyhud.editor.docs.ContextFunc;
@@ -6,8 +6,7 @@ import io.github.thelinuxseal.sealymod.client.sealyhud.editor.docs.ContextFunc;
 public final class Chunk {
 
     ChunkPos chunk;
-
-    public Chunk(ChunkPos chunk){
+    public void set(ChunkPos chunk){
         this.chunk = chunk;
     }
 

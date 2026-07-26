@@ -10,8 +10,9 @@ public final class ClientContext {
     public final ClientNetworkingContext networking = new ClientNetworkingContext();
     @ContextClass(name="Camera")
     public final ClientCameraContext camera = new ClientCameraContext();
-    @ContextFunc(path = "client.fps()", name = "Client FPS", desc = "Returns the Frames Per Second", returns = "int")
+    @ContextFunc(path = "client.fps()", name = "Client FPS", desc = "Returns the FPS.", returns = "int")
     public int fps(){
         return Minecraft.getInstance().getFps();
     }
+
 }

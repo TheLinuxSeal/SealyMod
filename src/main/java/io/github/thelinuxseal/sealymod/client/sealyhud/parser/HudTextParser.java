@@ -15,11 +15,12 @@ public class HudTextParser {
                     "io.github.thelinuxseal.sealymod.client.sealyhud.contexts.client.*",
                     "io.github.thelinuxseal.sealymod.client.sealyhud.contexts.player.*",
                     "io.github.thelinuxseal.sealymod.client.sealyhud.contexts.system.*",
-                    "io.github.thelinuxseal.sealymod.client.sealyhud.contexts.common.*",
+                    "io.github.thelinuxseal.sealymod.client.sealyhud.contexts.objects.*",
                     "io.github.thelinuxseal.sealymod.client.sealyhud.contexts.util.*",
                     "io.github.thelinuxseal.sealymod.client.sealyhud.contexts.world.*",
                     "java.lang { String{} Math{} Integer{} Double{} Float{} Long{} }",
-                    "java.util { List{} Map{} Set{} }"
+                    "java.util { List{} Map{} Set{} }",
+                    "io.github.thelinuxseal.sealymod.client.sealyhud.contexts.objects { * { !set } }"
             ))
             .create();
     private static final JxltEngine jxlt = jexl.createJxltEngine();
@@ -42,7 +43,7 @@ public class HudTextParser {
             Object result = expr.evaluate(context);
             return result != null ? result.toString() : "";
         } catch (Exception e) {
-            return "Error "+e.toString();
+            return "[Eval Error]";
         }
     }
 

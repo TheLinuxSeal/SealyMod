@@ -11,6 +11,7 @@ import net.minecraft.server.packs.resources.Resource;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
@@ -40,12 +41,10 @@ public class LangInstance {
     }
 
     public JsonElement getAsJsonElement(String key) {
-        // If data isn't loaded or missing the key, wrap the fallback key into a JsonPrimitive
         if (langData == null || !langData.has(key)) {
             return new JsonPrimitive(key);
         }
 
-        // Otherwise, return the actual element (which could be your JsonObject)
         return langData.get(key);
     }
 
@@ -72,9 +71,11 @@ public class LangInstance {
 
             } catch (Exception e) {
                 try {
-                    System.out.println("[SealyMod] Failed reading lang pack: "+ resource.knownPackInfo().toString());
+                    System.out.println("[SealyMod] Failed reading lang from resource pack: "+ resource.knownPackInfo().toString());
+                    System.out.println(Arrays.toString(e.getStackTrace()));
                 } catch (Exception f) {
-                    System.out.println("[SealyMod] Failed reading lang pack");
+                    System.out.println("[SealyMod] Failed reading lang from some resource pack, and can't print info about it :(");
+                    System.out.println(Arrays.toString(e.getStackTrace()));
                 }
             }
         }

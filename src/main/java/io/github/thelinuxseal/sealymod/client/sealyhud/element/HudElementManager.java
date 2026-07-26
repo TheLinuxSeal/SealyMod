@@ -6,6 +6,7 @@ import java.util.List;
 
 public class HudElementManager {
     private static final List<HudElement> elements = new ArrayList<>();
+    private static List<HudElement> unmodifiableView = Collections.unmodifiableList(elements);
 
     public static void clear() {
         elements.clear();
@@ -16,21 +17,19 @@ public class HudElementManager {
     }
 
     public static List<HudElement> getAll() {
-        return Collections.unmodifiableList(elements);
+        return unmodifiableView; // no allocation, same view every call
     }
 
     public static void loadFromConfig(List<HudElement> configList) {
         clear();
         for (HudElement cfg : configList) {
-            // Load everything! We don't skip disabled ones anymore.
-            HudElement element = new HudElement(
+            add(new HudElement(
                     cfg.getXFormula(),
                     cfg.getYFormula(),
                     cfg.getTextSizeFormula(),
                     cfg.getTextTemplate(),
                     cfg.isEnabled()
-            );
-            add(element);
+            ));
         }
     }
 }

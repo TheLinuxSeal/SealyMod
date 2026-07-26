@@ -5,12 +5,22 @@ This project includes the following third-party libraries:
 
 - exp4j
   Copyright (c) Object Hunter
-  Licensed under the Apache License 2.0
+  License: LICENSES/exp4j-LICENSE (source), META-INF/licenses/exp4j-LICENSE (jar)
 
 - Apache Commons JEXL
   Copyright The Apache Software Foundation
-  Licensed under the Apache License 2.0
+  License: LICENSES/jexl3-LICENSE (source), META-INF/licenses/jexl3-LICENSE (jar)
+
+  Apache Commons JEXL
+  Copyright 2001-2026 The Apache Software Foundation
+  This product includes software developed at
+  The Apache Software Foundation (https://www.apache.org/).
 
 - Apache Commons Logging
   Copyright The Apache Software Foundation
-  Licensed under the Apache License 2.0
+  License: LICENSES/commons-logging-LICENSE (source), META-INF/licenses/commons-logging-LICENSE (jar)
+
+  Apache Commons Logging
+  Copyright 2001-2026 The Apache Software Foundation
+  This product includes software developed at
+  The Apache Software Foundation (https://www.apache.org/).

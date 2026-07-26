@@ -1,10 +1,10 @@
-package io.github.thelinuxseal.sealymod.client.sealyhud.contexts.common;
+package io.github.thelinuxseal.sealymod.client.sealyhud.contexts.objects;
 
 import io.github.thelinuxseal.sealymod.client.sealyhud.editor.docs.ContextFunc;
 
 public final class Rotation {
-    private final double xRot;
-    private final double yRot;
+    private double xRot;
+    private double yRot;
     private final String[] directions = {
             "South (+Z)",
             "Southwest (-X, +Z)",
@@ -16,7 +16,7 @@ public final class Rotation {
             "Southeast (+X, +Z)"
     };
 
-    public Rotation(double xRot, double yRot) {
+    public void set(double xRot, double yRot) {
         this.xRot=xRot;
         this.yRot=yRot;
     }

@@ -15,7 +15,7 @@ public class SealyHudConfig {
     public SealyHudConfig() {
         // Provide a default layout widget so the HUD list isn't empty on the very first launch
         this.widgets.add(new HudElement("7.5", "7.5", "7.5",  "My FPS is: ${client.fps()}", false));
-        this.widgets.add(new HudElement("7.5","screenheight-15","7.5","Position: ${player.pos.x()}, ${player.pos.y()}, ${player.pos.z()}",false));
+        this.widgets.add(new HudElement("7.5","15","7.5","Position: ${player.position().x()}, ${player.position().y()}, ${player.position().z()}",false));
     }
     public void sanitize(){
         for (HudElement element : this.widgets) {

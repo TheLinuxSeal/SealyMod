@@ -2,8 +2,8 @@ package io.github.thelinuxseal.sealymod.client.sealyhud.contexts.client;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import io.github.thelinuxseal.sealymod.client.sealyhud.contexts.common.Position;
-import io.github.thelinuxseal.sealymod.client.sealyhud.contexts.common.Rotation;
+import io.github.thelinuxseal.sealymod.client.sealyhud.contexts.objects.Position;
+import io.github.thelinuxseal.sealymod.client.sealyhud.contexts.objects.Rotation;
 import io.github.thelinuxseal.sealymod.client.sealyhud.editor.docs.ContextFunc;
 
 public final class ClientCameraContext {
@@ -12,10 +12,17 @@ public final class ClientCameraContext {
         return Minecraft.getInstance().gameRenderer.mainCamera();
     }
 
+    private final Position positionInstance = new Position();
+    private final Rotation rotationInstance = new Rotation();
+
     @ContextFunc(path = "client.camera.position()", name = "Camera Position", desc = "Returns the camera's position", returns = "Position")
-    public Position position(){return new Position(camera().position(),camera().blockPosition());}
-    @ContextFunc(name="Player Rotation", desc="Returns the rotation of the player.", path="player.rotation()", returns = "Rotation")
-    public Rotation rotation(){return new Rotation(camera().xRot(), camera().yRot());}
-
-
+    public Position position(){
+        positionInstance.set(camera().position(),camera().blockPosition());
+        return positionInstance;
+    }
+    @ContextFunc(name="Camera Rotation", desc="Returns the rotation of the camera.", path="client.camera.rotation()", returns = "Rotation")
+    public Rotation rotation(){
+        rotationInstance.set(camera().xRot(),camera().yRot());
+        return rotationInstance;
+    }
 }

@@ -1,4 +1,4 @@
-package io.github.thelinuxseal.sealymod.client.sealyhud.contexts.common;
+package io.github.thelinuxseal.sealymod.client.sealyhud.contexts.objects;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -6,14 +6,17 @@ import net.minecraft.world.phys.Vec3;
 import io.github.thelinuxseal.sealymod.client.sealyhud.editor.docs.ContextFunc;
 
 public final class Position {
+    private Chunk chunkInstance = new Chunk();
 
-    private final Vec3 pos;
-    private final BlockPos blockPos;
+    private Vec3 pos;
+    private BlockPos blockPos;
 
-    public Position(Vec3 pos, BlockPos blockPos) {
+    public void set(Vec3 pos, BlockPos blockPos) {
         this.pos=pos;
         this.blockPos=blockPos;
     }
+
+
 
     @ContextFunc(path = "Position().exactX()", name = "Exact X", desc = "Returns the exact x coordinate.", returns = "double")
     public double exactX() { return pos.x; }
@@ -38,8 +41,16 @@ public final class Position {
 
     @ContextFunc(name="Chunk", desc="Returns the Chunk that the position is in.", path="Position().chunk()", returns = "Chunk")
     public Chunk chunk(){
-        return new Chunk(Minecraft.getInstance().level.getChunk(blockPos).getPos());
+        chunkInstance.set(Minecraft.getInstance().level.getChunk(blockPos).getPos());
+        return chunkInstance;
     }
+
+    @ContextFunc(path = "Position().biome()", name = "Biome", desc = "The biome that the position is in.", returns = "String")
+    public String biome(){
+        Minecraft client = Minecraft.getInstance();
+        return (client.level != null && client.player != null) ? client.level.getBiome(blockPos).getRegisteredName() : "...";
+    }
+
 
 
 
