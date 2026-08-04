@@ -19,6 +19,8 @@
   "sealymod.sealyhud.editor.exit": "Exit",
   "sealymod.sealyhud.editor.docs": "Docs",
   "sealymod.sealyhud.editor.docs.exit": "Exit",
+  "sealymod.sealyhud.editor.docs.size.more": "+",
+  "sealymod.sealyhud.editor.docs.size.less": "-",
   "sealymod.sealyhud.editor.docs.node.expanded": "+",
   "sealymod.sealyhud.editor.docs.node.closed": "§8-",
   "sealymod.sealyhud.editor.docs.error": "Error loading docs...",

@@ -1,0 +1,14 @@
+{
+  "required": false,
+  "package": "io.github.thelinuxseal.sealymod.client.features.firebillboardtweak",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "FireBillboardTweakMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

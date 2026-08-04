@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "io.github.thelinuxseal.sealymod.client.features.crosshairtweak",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "CrosshairTweakMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

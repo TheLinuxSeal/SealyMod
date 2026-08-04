@@ -16,16 +16,23 @@
 	"icon": "assets/sealymod/icon.png",
 	"environment": "client",
 	"entrypoints": {
+		"main": [
+			"io.github.thelinuxseal.sealymod.common.SealyMod"
+		],
 		"client": [
 			"io.github.thelinuxseal.sealymod.client.SealyModClient"
 		],
 		"modmenu": [
-			"io.github.thelinuxseal.sealymod.client.config.ModMenuIntegration"
+			"io.github.thelinuxseal.sealymod.intergration.ModMenuIntegration"
 		]
 	},
 	"mixins": [
 		{
-			"config": "sealymod.client.mixins.json",
+			"config": "mixins/sealymod.firebillboardtweak.json",
+			"environment": "client"
+		},
+		{
+			"config": "mixins/sealymod.crosshairtweak.json",
 			"environment": "client"
 		}
 	],
